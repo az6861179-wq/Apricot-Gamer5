@@ -150,7 +150,7 @@
         // مصفوفة المنتجات: قم بتعديل خانة الـ image لتطابق اسم الصورة الحقيقي على جهازك
         const productsData = [
             // ==================== [ قسم الأجهزة والمنصات - consoles ] ====================
-            { id: 1, category: "consoles", title: "جهاز Sony PlayStation 5 Pro الاحترافي", price: 710.00, image: "ps5_pro.png", desc: "جهاز بلايستيشن 5 برو الجديد كلياً بأقوى أداء رسومي وتتبع أشعة متطور.", hasVariants: false },
+            { id: 1, category: "consoles", title: "png(36).png", price: 710.00, image: "ps5_pro.png", desc: "جهاز بلايستيشن 5 برو الجديد كلياً بأقوى أداء رسومي وتتبع أشعة متطور.", hasVariants: false },
             { id: 2, category: "consoles", title: "جهاز PlayStation 5 Slim النسخة الرقمية", price: 420.00, image: "ps5_digital.png", desc: "نسخة سليم النحيفة الرقمية بالكامل مع هارد SSD فائق السرعة بسعة 1 تيرا بايت.", hasVariants: false },
             { id: 3, category: "consoles", title: "جهاز PlayStation 5 Slim نسخة الأقراص", price: 470.00, image: "ps5_cd.png", desc: "نسخة سليم النحيفة الداعمة لتشغيل الأقراص والسي دي بدقة 4K الحقيقية.", hasVariants: false },
             { id: 4, category: "consoles", title: "تجميعة بي سي جيمنج المطور (Intel i5 + RTX 3050)", price: 595.00, image: "pc_rtx3050.png", desc: "معالج i5 الجيل 12، ذاكرة 16GB RAM، وكرت شاشة RTX 3050 لتشغيل الألعاب التنافسية بسلاسة.", hasVariants: false },
@@ -310,7 +310,8 @@
                 container.innerHTML += `<div class="cart-item"><div><b>${i.title}</b><br><span style="color:var(--primary)">${i.qty} × ${i.price.toFixed(2)} د.أ</span></div><button onclick="cart=cart.filter(x=>x.key!=='${i.key}'); updateCart();" style="background:none; border:none; color:red; cursor:pointer;">حذف</button></div>`;
             });
             document.getElementById('cartCount').innerText = count;
-            document.getElementById('cartTotal').innerText = total.toFixed(2) + " د.أ";
+            document.getElementById('cartTotal').innerT</body>
+</html>ext = total.toFixed(2) + " د.أ";
         }
 
         function toggleCart() { document.getElementById('cartSidebar').classList.toggle('open'); }
@@ -324,75 +325,5 @@
 
         displayProducts(productsData);
     </script>
-const productsData = [
-  // ================= قسم الأجهزة والكونسول =================
-  { id: 4, category: "consoles", title: "جهاز PlayStation 5 Disc Edition", price: 485.00, image: "png (4).png" },
-  { id: 5, category: "consoles", title: "جهاز Xbox Series X", price: 425.00, image: "png (5).png" },
-  { id: 6, category: "consoles", title: "جهاز Xbox Series S", price: 335.00, image: "png (6).png" },
-  { id: 36, category: "consoles", title: "جهاز PlayStation 5 Slim Digital", price: 435.00, image: "png (36).png" },
-  { id: 52, category: "consoles", title: "شاشة ألعاب Fantech Chimera GM242AC منحنية", price: 105.00, image: "png (52).png" },
-  { id: 57, category: "consoles", title: "نظارة الواقع الافتراضي PlayStation VR2 + Horizon", price: 360.00, image: "png (57).png" },
-  { id: 63, category: "consoles", title: "كمبيوتر محمول للألعاب HP Victus 15 Gaming Laptop", price: 585.00, image: "png (63).png" },
-
-  // ================= قسم الألعاب (Games) =================
-  { id: 12, category: "games", title: "لعبة Call of Duty: Black Ops 7 لجهاز PS5", price: 45.00, image: "png (12).png" },
-  { id: 13, category: "games", title: "لعبة Battlefield 6 لجهاز PS5", price: 57.00, image: "png (13).png" },
-  { id: 14, category: "games", title: "لعبة EA Sports FC 26 لجهاز PS5", price: 41.00, image: "png (14).png" },
-  { id: 15, category: "games", title: "لعبة Horizon Forbidden West لجهاز PS5", price: 25.00, image: "png (15).png" },
-  { id: 20, category: "games", title: "لعبة Resident Evil 4 Remake لجهاز PS5", price: 25.00, image: "png (20).png" },
-  { id: 21, category: "games", title: "لعبة Avatar: Frontiers of Pandora لجهاز PS5", price: 43.00, image: "png (21).png" },
-  { id: 22, category: "games", title: "لعبة Gears of War Reloaded لجهاز PS5", price: 42.00, image: "png (22).png" },
-  { id: 23, category: "games", title: "لعبة Uncharted: Legacy of Thieves Collection لجهاز PS5", price: 34.00, image: "png (23).png" },
-  { id: 24, category: "games", title: "لعبة Silent Hill 2 لجهاز PS5", price: 46.00, image: "png (24).png" },
-  { id: 25, category: "games", title: "لعبة Hitman: World of Assassination لجهاز PS5", price: 35.00, image: "png (25).png" },
-  { id: 26, category: "games", title: "لعبة Crash Team Rumble لجهاز PS5", price: 35.00, image: "png (26).png" },
-  { id: 27, category: "games", title: "لعبة Silent Hill f لجهاز PS5", price: 65.00, image: "png (27).png" },
-  { id: 31, category: "games", title: "لعبة Pragmata لجهاز PS5", price: 60.00, image: "png (31).png" },
-  { id: 32, category: "games", title: "لعبة Resident Evil Requiem لجهاز PS5", price: 59.00, image: "png (32).png" },
-  { id: 33, category: "games", title: "لعبة Crimson Desert لجهاز PS5", price: 59.00, image: "png (33).png" },
-  { id: 34, category: "games", title: "لعبة Reanimal لجهاز PS5", price: 35.00, image: "png (34).png" },
-  { id: 41, category: "games", title: "لعبة Arc Raiders لجهاز PS5", price: 35.00, image: "png (41).png" },
-  { id: 54, category: "games", title: "لعبة Minecraft لجهاز PS5", price: 15.00, image: "png (54).png" },
-
-  // ================= قسم الملحقات والقطع (Accessories) =================
-  { id: 3, category: "accessories", title: "ماوس ألعاب لاسلكي Haing GM200 RGB", price: 7.99, image: "png (3).png" },
-  { id: 7, category: "accessories", title: "قبضة ألعاب للهواتف GameSir X5 Lite", price: 28.00, image: "png (7).png" },
-  { id: 35, category: "accessories", title: "قطع غيار أنالوج Hall Effect لجهاز PS4 / PS5 تمنع الدرفت", price: 13.00, image: "png (35).png" },
-  { id: 40, category: "accessories", title: "قاعدة ماوس ألعاب ممتدة ومضيئة RGB مقاس 88x33 سم", price: 15.00, image: "png (40).png" },
-  { id: 42, category: "accessories", title: "صندوق كمبيوتر ألعاب احترافي (Case RGB)", price: 45.00, image: "png (42).png" },
-  { id: 43, category: "accessories", title: "لوحة مفاتيح ألعاب ميكانيكية Machenike K500 D B61", price: 25.00, image: "png (43).png" },
-  { id: 44, category: "accessories", title: "شاشة ألعاب احترافية MZQ25F250 بتردد 250 هرتز", price: 174.00, image: "png (44).png" },
-  { id: 45, category: "accessories", title: "طاولة ألعاب احترافية Fantech Workstation DW114", price: 249.00, image: "png (45).png" },
-  { id: 46, category: "accessories", title: "سماعة ألعاب لاسلكية Sony Pulse Elite", price: 119.99, image: "png (46).png" },
-  { id: 47, category: "accessories", title: "يد تحكم احترافية GameSir G7 Pro للكمبيوتر والإكس بوكس", price: 39.00, image: "png (47).png" },
-  { id: 48, category: "accessories", title: "قطع غيار Stick Module ليد تحكم DualSense Edge", price: 43.00, image: "png (48).png" },
-  { id: 49, category: "accessories", title: "حامل وقبضة ألعاب GameSir X5 Lite المحمولة", price: 28.00, image: "png (49).png" },
-  { id: 50, category: "accessories", title: "ميكروفون احترافي Fantech MC20 Professional Condenser", price: 21.99, image: "png (50).png" },
-  { id: 51, category: "accessories", title: "قاعدة ماوس ألعاب احترافية Fantech MP453 Agile", price: 8.00, image: "png (51).png" },
-  { id: 53, category: "accessories", title: "سماعات ألعاب محيطية احترافية مع ميكروفون", price: 25.00, image: "png (53).png" },
-  { id: 58, category: "accessories", title: "مقود ألعاب لوجيتك Logitech G29 Driving Force مع الدواسات", price: 240.00, image: "png (58).png" },
-  { id: 59, category: "accessories", title: "يد تحكم بلايستيشن 5 اللاسلكية DualSense Wireless Controller", price: 55.00, image: "png (59).png" },
-  { id: 60, category: "accessories", title: "لوحة مفاتيح ألعاب ميكانيكية Fantech Chimera K613X RGB", price: 19.99, image: "png (60).png" },
-  { id: 61, category: "accessories", title: "سماعة رأس لاسلكية Fantech WH05A Go Vibe مع إلغاء الضوضاء", price: 20.00, image: "png (61).png" },
-  { id: 62, category: "accessories", title: "يد تحكم لاسلكية احترافية Machenike G5 Pro V1000", price: 44.00, image: "png (62).png" },
-
-  // ================= قسم البطاقات والاشتراكات (Cards) =================
-  { id: 1, category: "cards", title: "بطاقة هدايا متجر EA Gift Card بقيمة 15$", price: 12.50, image: "png (1).png" },
-  { id: 2, category: "cards", title: "بطاقات شحن روبلوكس Roblox Gift Card بقيمة 10$", price: 8.50, image: "png (2).png" },
-  { id: 8, category: "cards", title: "بطاقة شحن بلايستيشن ستور اللبناني بقيمة 10$", price: 7.95, image: "png (8).png" },
-  { id: 9, category: "cards", title: "بطاقة شحن بلايستيشن ستور القطري بقيمة 10$", price: 7.95, image: "png (9).png" },
-  { id: 10, category: "cards", title: "بطاقة شحن بلايستيشن ستور الكويتي بقيمة 10$", price: 7.95, image: "png (10).png" },
-  { id: 11, category: "cards", title: "بطاقة شحن بلايستيشن ستور السعودي بقيمة 10$", price: 7.95, image: "png (11).png" },
-  { id: 17, category: "cards", title: "بطاقات شحن ستيم الأمريكي بقيمة 5$", price: 5.00, image: "png (17).png" },
-  { id: 18, category: "cards", title: "بطاقات شحن شدات ببجي PUBG Mobile - ستيم التركي", price: 1.10, image: "png (18).png" },
-  { id: 19, category: "cards", title: "بطاقات شحن شدات ببجي PUBG Mobile - ستيم السعودي", price: 3.50, image: "png (19).png" },
-  { id: 28, category: "cards", title: "اشتراك بلايستيشن بلس 12 شهر - الفاخر Premium", price: 39.00, image: "png (28).png" },
-  { id: 29, category: "cards", title: "اشتراك بلايستيشن بلس 12 شهر - الإضافي Extra", price: 35.00, image: "png (29).png" },
-  { id: 30, category: "cards", title: "اشتراك بلايستيشن بلس 12 شهر - الأساسي Essential", price: 30.00, image: "png (30).png" },
-  { id: 37, category: "cards", title: "اشتراك بلايستيشن بلس 3 أشهر - الفاخر Premium", price: 20.00, image: "png (37).png" },
-  { id: 38, category: "cards", title: "اشتراك بلايستيشن بلس 3 أشهر - الإضافي Extra", price: 18.00, image: "png (38).png" },
-  { id: 39, category: "cards", title: "اشتراك بلايستيشن بلس 3 أشهر - الأساسي Essential", price: 13.00, image: "png (39).png" },
-  { id: 55, category: "cards", title: "بطاقات شحن بلايستيشن ستور البريطاني بقيمة 5£", price: 4.90, image: "png (55).png" },
-  { id: 56, category: "cards", title: "بطاقات شحن بلايستيشن ستور اللبناني بقيمة 10$", price: 7.95, image: "png (56).png" },
-  { id: 64, category: "cards", title: "بطاقات شحن ستيم الأمريكي بقيمة 25$", price: 25.00, image: "png (64).png" }
-];
+    </body>
+</html>
