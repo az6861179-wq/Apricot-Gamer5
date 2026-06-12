@@ -1,333 +1,565 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Apricot Gamers</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apricot Gamers | متجر الألعاب الاحترافي</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* إعدادات الألوان المستوحاة من متاجر الجيمرز العالمية */
+        :root {
+            --bg-dark: #0b0e14;
+            --bg-card: #151a24;
+            --primary: #ff4c29;
+            --primary-hover: #ff684a;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --accent: #334155;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            scroll-behavior: smooth;
+        }
 
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Cairo',sans-serif;
-}
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
 
-body{
-background:#ffffff;
-}
+        /* الهيدر ونظام التنقل الاحترافي */
+        header {
+            background-color: rgba(11, 14, 20, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid rgba(255, 76, 41, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:20px 50px;
-box-shadow:0 2px 10px rgba(0,0,0,.1);
-position:sticky;
-top:0;
-background:white;
-z-index:1000;
-}
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--text-main);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-.logo{
-font-size:28px;
-font-weight:bold;
-}
+        .logo span {
+            color: var(--primary);
+            text-shadow: 0 0 10px rgba(255, 76, 41, 0.5);
+        }
 
-.search{
-width:40%;
-padding:12px;
-border:1px solid #ddd;
-border-radius:10px;
-}
+        /* شريط البحث الذكي */
+        .search-container {
+            flex: 0 1 400px;
+            position: relative;
+        }
 
-.cart{
-font-size:20px;
-cursor:pointer;
-}
+        .search-container input {
+            width: 100%;
+            padding: 10px 20px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--accent);
+            border-radius: 30px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
 
-.categories{
-display:flex;
-gap:15px;
-padding:20px;
-justify-content:center;
-flex-wrap:wrap;
-}
+        .search-container input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(255, 76, 41, 0.2);
+        }
 
-.categories button{
-padding:12px 20px;
-border:none;
-background:#f5f5f5;
-border-radius:10px;
-cursor:pointer;
-}
+        /* زر السلة التفاعلي */
+        .cart-icon-container {
+            position: relative;
+            cursor: pointer;
+            background: var(--bg-card);
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 1px solid var(--accent);
+            transition: all 0.3s ease;
+        }
 
-.products{
-display:grid;
-grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
-gap:20px;
-padding:30px;
-}
+        .cart-icon-container:hover {
+            border-color: var(--primary);
+            background: rgba(255, 76, 41, 0.05);
+        }
 
-.product-card{
-background:white;
-border-radius:15px;
-overflow:hidden;
-box-shadow:0 2px 10px rgba(0,0,0,.08);
-transition:.3s;
-}
+        .cart-count {
+            background-color: var(--primary);
+            color: white;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 5px;
+            margin-right: 5px;
+            font-size: 0.85rem;
+        }
 
-.product-card:hover{
-transform:translateY(-5px);
-}
+        /* قسيمة البانر الترحيبي المبهر */
+        .hero {
+            background: radial-gradient(circle at center, rgba(21, 26, 36, 0.8) 0%, rgba(11, 14, 20, 1) 100%);
+            padding: 80px 5% 40px 5%;
+            text-align: center;
+            position: relative;
+        }
 
-.product-card img{
-width:100%;
-height:250px;
-object-fit:contain;
-background:white;
-}
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
 
-.product-info{
-padding:15px;
-}
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+        }
 
-.price{
-font-weight:bold;
-font-size:20px;
-margin-top:10px;
-}
+        /* شبكة عرض المنتجات بطراز متجر Gamers.jo */
+        .main-container {
+            padding: 40px 5%;
+        }
 
-.btn{
-width:100%;
-padding:12px;
-margin-top:10px;
-border:none;
-background:black;
-color:white;
-border-radius:10px;
-cursor:pointer;
-}
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 25px;
+        }
 
-footer{
-padding:40px;
-text-align:center;
-background:#f7f7f7;
-margin-top:50px;
-}
-</style>
+        .product-card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid rgba(148, 163, 184, 0.05);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 76, 41, 0.4);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .image-wrapper {
+            width: 100%;
+            height: 220px;
+            background-color: #1e2530;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.08);
+        }
+
+        .product-info {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .product-title:hover {
+            color: var(--primary);
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 15px;
+        }
+
+        .price-tag {
+            color: var(--primary);
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .add-to-cart-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* نافذة عرض تفاصيل المنتج المنبثقة (Popup) */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: var(--bg-card);
+            border: 1px solid var(--primary);
+            width: 100%;
+            max-width: 600px;
+            border-radius: 16px;
+            padding: 30px;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-size: 1.8rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .close-modal:hover {
+            color: var(--primary);
+        }
+
+        .modal-img {
+            width: 100%;
+            max-height: 250px;
+            object-fit: contain;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .modal-desc {
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        /* لوحة سلة المشتريات الجانبية */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            left: -350px;
+            width: 350px;
+            height: 100%;
+            background-color: var(--bg-card);
+            border-right: 2px solid var(--primary);
+            box-shadow: 5px 0 25px rgba(0,0,0,0.5);
+            z-index: 500;
+            transition: left 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            padding: 25px;
+        }
+
+        .cart-sidebar.open {
+            left: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--accent);
+            padding-bottom: 15px;
+        }
+
+        .cart-items-container {
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-dark);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        .checkout-btn {
+            background-color: #10b981;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        /* تذييل الصفحة الاحترافي */
+        footer {
+            background-color: #05070a;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid var(--accent);
+            color: var(--text-muted);
+            margin-top: 60px;
+            font-size: 0.95rem;
+        }
+    </style>
 </head>
-
 <body>
 
-<header>
-<div class="logo">Apricot Gamers</div>
+    <header>
+        <a href="#" class="logo">APRICOT <span>GAMERS</span></a>
+        
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="ابحث عن ألعاب، بطاقات شحن، ملحقات...">
+        </div>
 
-<input
-type="text"
-class="search"
-placeholder="Search Products..."
->
+        <div class="cart-icon-container" onclick="toggleCart()">
+            <span>السلة 🛒</span>
+            <span class="cart-count" id="cartCount">0</span>
+        </div>
+    </header>
 
-<div class="cart">
-🛒 Cart
-</div>
-</header>
+    <section class="hero">
+        <h1>مرحباً بك في عالم <span>الابداع</span></h1>
+        <p>اكتشف أقوى العروض الحصرية والألعاب الرقمية والبطاقات بدون حدود أو علامات مائية وبأعلى معايير الجودة العالمية.</p>
+    </section>
 
-<section class="categories">
-<button>Electronic Games</button>
-<button>Gaming Consoles</button>
-<button>Accessories</button>
-<button>Gift Cards & Subscriptions</button>
-</section>
+    <main class="main-container">
+        <div class="products-grid" id="productsGrid">
+            </div>
+    </main>
 
-<section class="products">
-
-<div class="product-card">
-<img src="images/product1.jpg">
-<div class="product-info">
-<h3>Product Name</h3>
-<p>Short Description</p>
-<div class="price">20 JOD</div>
-
-<button class="btn">
-View Details
-</button>
-
-<button class="btn">
-Add To Cart
-</button>
-</div>
-</div>
-
-</section>
-
-<footer>
-
-<h3>Store Instagram</h3>
-
-<p>For Orders and Inquiries</p>
-
-<p>
-https://www.instagram.com/apricot_gamers
-</p>
-
-<br>
-
-<h3>CliQ Payment</h3>
-
-<p>Arab Bank</p>
-
-<p>+962796507200</p>
-
-</footer>
-
-</body>
-</html>const APRICOT_GAMERS_CONFIG = {
-
-  storeName: "Apricot Gamers",
-
-  currency: "JOD",
-
-  design: {
-    uniqueDesign: true,
-    doNotCopyGamersJo: true,
-    whiteBackgroundProducts: true,
-    premiumGamingTheme: true,
-    responsive: true,
-    animations: true,
-    hoverEffects: true,
-    imageZoom: true,
-    stickyNavbar: true
-  },
-
-  categories: [
-    "Electronic Games",
-    "Gaming Consoles",
-    "Accessories",
-    "PlayStation Store Cards",
-    "Steam Gift Cards",
-    "Roblox Gift Cards",
-    "EA Gift Cards",
-    "PUBG Mobile UC",
-    "PlayStation Plus"
-  ],
-
-  products: {
-    useUploadedImagesOnly: true,
-    preserveImageDimensions: true,
-    noImageOverlap: true,
-    noImageCropping: true,
-    noDuplicateProducts: true,
-    whiteBackgroundImages: true
-  },
-
-  productPage: {
-    showImage: true,
-    showName: true,
-    showDescription: true,
-    showPrice: true,
-    showSpecifications: true,
-    showRelatedProducts: true,
-    addToCartButton: true,
-    buyNowButton: true
-  },
-
-  cart: {
-    enabled: true,
-    addProducts: true,
-    removeProducts: true,
-    updateQuantity: true,
-    calculateTotal: true,
-    saveCart: true
-  },
-
-  search: {
-    instantSearch: true,
-    categoryFilter: true,
-    productFilter: true
-  },
-
-  subscriptions: {
-
-    playstationPlus: {
-
-      Essential: {
-        "3 Months": 13,
-        "12 Months": 30
-      },
-
-      Extra: {
-        "3 Months": 18,
-        "12 Months": 35
-      },
-
-      Premium: {
-        "3 Months": 20,
-        "12 Months": 39
-      }
-    }
-  },
-
-  variants: {
-
-    xboxSeriesS: [
-      {
-        name: "512GB",
-        price: 305
-      },
-      {
-        name: "1TB",
-        price: 335
-      }
-    ],
-
-    playstationCards: true,
-    steamCards: true,
-    robloxCards: true,
-    eaCards: true,
-    pubgUC: true
-  },
-
-  social: {
-    instagramName: "Apricot Gamers",
-    instagramUrl:
-      "https://www.instagram.com/apricot_gamers"
-  },
-
-  payment: {
-    method: "CliQ",
-    bank: "Arab Bank",
-    number: "+962796507200"
-  },
-
-  seo: {
-    enabled: true,
-    sitemap: true,
-    robotsTxt: true,
-    metaTags: true
-  }
-
-};Build the entire Apricot Gamers ecommerce website using all uploaded products, images, descriptions and prices. Use Jordanian Dinar (JOD) for all displayed prices. Create product pages, shopping cart, subscriptions, gift card variants, Xbox storage variants, search system, filters, SEO optimization and a unique premium gaming design that does not copy Gamers.jo directly.
-<div id="gallery" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 20px;">
+    <div class="modal" id="productModal" onclick="closeModal(event)">
+        <div class="modal-content">
+            <span class="close-modal" onclick="document.getElementById('productModal').classList.remove('active')">&times;</span>
+            <img src="" alt="" class="modal-img" id="modalImg">
+            <h2 class="modal-title" id="modalTitle"></h2>
+            <div class="modal-tag price-tag" id="modalPrice" style="margin-bottom: 15px;"></div>
+            <p class="modal-desc" id="modalDesc"></p>
+            <button class="add-to-cart-btn" id="modalActionBtn" style="width: 100%; padding: 12px;">إضافة إلى سلة المشتريات 📥</button>
+        </div>
     </div>
 
-<script>
-    const gallery = document.getElementById('gallery');
-    const totalImages = 63; // عدد صورك بالكامل
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>سلة المشتريات</h3>
+            <button onclick="toggleCart()" style="background:none; border:none; color:white; font-size:1.2rem; cursor:pointer;">إغلاق ✕</button>
+        </div>
+        <div class="cart-items-container" id="cartItems">
+            </div>
+        <div style="margin-top: auto; border-top: 1px solid var(--accent); padding-top: 15px;">
+            <div style="display:flex; justify-content:space-between; font-weight:700;">
+                <span>المجموع الكلي:</span>
+                <span id="cartTotal" style="color:var(--primary)">0.00 دينار</span>
+            </div>
+            <button class="checkout-btn" onclick="alert('سيتم توجيهك لإتمام الدفع السريع وآمن عبر محفظتك أو خدمة CliQ!')">إتمام الطلب الآن</button>
+        </div>
+    </div>
 
-    for (let i = 1; i <= totalImages; i++) {
-        // إنشاء كرت المنتج لكل صورة تلقائياً
-        const card = document.createElement('div');
-        card.className = 'product-card'; // نفس ستايل كرت المنتج لمتجرك
-        card.innerHTML = `
-            <img src="${i}.png" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px;" onerror="this.src='${i}.jpg'">
-            <h3>منتج مميز رقم ${i}</h3>
-            <div class="price" style="color: #ff4c29; font-weight: bold; margin: 10px 0;">السعر عند التواصل</div>
-            <button class="btn-buy" style="background: #ff4c29; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">شراء الآن</button>
-        `;
-        gallery.appendChild(card);
-    }
-</script>
+    <footer>
+        <p>&copy; 2026 جميع الحقوق محفوظة لمتجر Apricot Gamers - تصميم احترافي خاص وخالٍ من العلامات المائية.</p>
+    </footer>
+
+    <script>
+        const totalImages = 63;
+        const productsGrid = document.getElementById('productsGrid');
+        let cart = [];
+
+        // توليد عشوائي ذكي لبيانات المنتجات والأسعار لتبدو احترافية وواقعية جداً
+        const categories = ["بطاقة شحن رقمية", "حساب ألعاب مميز", "ملحقات جيمنج", "حزمة عروض حصرية"];
+        const prices = [5.00, 10.00, 15.00, 25.00, 40.00, 50.00, 75.00];
+
+        // مصفوفة لتخزين المنتجات ليسهل البحث والتفاعل معها
+        let productsData = [];
+
+        // حلقة توليد البيانات وعرض كروت المنتجات
+        for (let i = 1; i <= totalImages; i++) {
+            let cat = categories[i % categories.length];
+            let price = prices[i % prices.length];
+            
+            let product = {
+                id: i,
+                title: `${cat} فئة ${i}# VIP`,
+                price: price,
+                image: `${i}.png`, // الإمتداد الافتراضي
+                desc: `هذا المنتج رقم ${i} يمثل واحدة من أفضل الحزم المتاحة والمصممة خصيصاً لعشاق الألعاب. يقدم متجر Apricot Gamers هذا المنتج بأعلى جودة وضمان فوري للشحن مباشرة بعد إتمام عملية الدفع عبر المحافظ الإلكترونية أو نظام كليك.`
+            };
+            productsData.push(product);
+
+            // بناء هيكل الكرت البرمجي للمنتج
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.setAttribute('data-id', i);
+            card.innerHTML = `
+                <div class="image-wrapper" onclick="openProduct(${i})">
+                    <img src="${product.image}" alt="${product.title}" onerror="this.onerror=null; this.src='${i}.jpg';">
+                </div>
+                <div class="product-info">
+                    <div class="product-title" onclick="openProduct(${i})">${product.title}</div>
+                    <div class="price-row">
+                        <div class="price-tag">${price.toFixed(2)} د.أ</div>
+                        <button class="add-to-cart-btn" onclick="addToCart(${i})">إضافة 🛒</button>
+                    </div>
+                </div>
+            `;
+            productsGrid.appendChild(card);
+        }
+
+        // تفعيل نافذة التفاصيل (Popup) عند الضغط على العنوان أو الصورة
+        function openProduct(id) {
+            const prod = productsData.find(p => p.id === id);
+            document.getElementById('modalImg').src = prod.image;
+            document.getElementById('modalImg').onerror = function() { this.src = id + '.jpg'; };
+            document.getElementById('modalTitle').innerText = prod.title;
+            document.getElementById('modalPrice').innerText = prod.price.toFixed(2) + " دينار أردني";
+            document.getElementById('modalDesc').innerText = prod.desc;
+            document.getElementById('modalActionBtn').onclick = function() {
+                addToCart(id);
+                document.getElementById('productModal').classList.remove('active');
+            };
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        function closeModal(e) {
+            if(e.target.id === 'productModal') {
+                document.getElementById('productModal').classList.remove('active');
+            }
+        }
+
+        // تفعيل سلة المشتريات (الحساب، العداد، والحذف الحركي)
+        function toggleCart() {
+            document.getElementById('cartSidebar').classList.toggle('open');
+        }
+
+        function addToCart(id) {
+            const prod = productsData.find(p => p.id === id);
+            const exists = cart.find(item => item.id === id);
+            if(exists) {
+                exists.quantity += 1;
+            } else {
+                cart.push({...prod, quantity: 1});
+            }
+            updateCartUI();
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cartItems');
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+            let count = 0;
+
+            cart.forEach(item => {
+                total += item.price * item.quantity;
+                count += item.quantity;
+
+                const itemRow = document.createElement('div');
+                itemRow.className = 'cart-item';
+                itemRow.innerHTML = `
+                    <div style="text-align:right;">
+                        <div style="font-weight:700; font-size:0.9rem;">${item.title}</div>
+                        <div style="color:var(--primary); font-size:0.85rem;">${item.quantity} × ${item.price.toFixed(2)} د.أ</div>
+                    </div>
+                    <button onclick="removeFromCart(${item.id})" style="background:none; border:none; color:#ef4444; cursor:pointer; font-weight:bold;">حذف</button>
+                `;
+                cartItemsContainer.appendChild(itemRow);
+            });
+
+            document.getElementById('cartCount').innerText = count;
+            document.getElementById('cartTotal').innerText = total.toFixed(2) + " دينار";
+        }
+
+        // تفعيل محرك البحث الحيوي الذكي في المتصفح تلقائياً
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.product-card');
+
+            cards.forEach(card => {
+                const id = parseInt(card.getAttribute('data-id'));
+                const prod = productsData.find(p => p.id === id);
+                if(prod.title.toLowerCase().includes(query) || prod.desc.toLowerCase().includes(query)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
