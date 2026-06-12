@@ -311,3 +311,23 @@ https://www.instagram.com/apricot_gamers
   }
 
 };Build the entire Apricot Gamers ecommerce website using all uploaded products, images, descriptions and prices. Use Jordanian Dinar (JOD) for all displayed prices. Create product pages, shopping cart, subscriptions, gift card variants, Xbox storage variants, search system, filters, SEO optimization and a unique premium gaming design that does not copy Gamers.jo directly.
+<div id="gallery" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 20px;">
+    </div>
+
+<script>
+    const gallery = document.getElementById('gallery');
+    const totalImages = 63; // عدد صورك بالكامل
+
+    for (let i = 1; i <= totalImages; i++) {
+        // إنشاء كرت المنتج لكل صورة تلقائياً
+        const card = document.createElement('div');
+        card.className = 'product-card'; // نفس ستايل كرت المنتج لمتجرك
+        card.innerHTML = `
+            <img src="${i}.png" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px;" onerror="this.src='${i}.jpg'">
+            <h3>منتج مميز رقم ${i}</h3>
+            <div class="price" style="color: #ff4c29; font-weight: bold; margin: 10px 0;">السعر عند التواصل</div>
+            <button class="btn-buy" style="background: #ff4c29; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">شراء الآن</button>
+        `;
+        gallery.appendChild(card);
+    }
+</script>
