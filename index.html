@@ -79,7 +79,7 @@
 
         .add-to-cart-btn { background-color: var(--primary); color: white; border: none; padding: 6px 14px; border-radius: 6px; font-weight: 700; cursor: pointer; }
 
-        /* نافذة تفاصيل المنتجات */
+        /* نافذة التفاصيل */
         .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(8px); display: none; justify-content: center; align-items: center; z-index: 1000; padding: 20px; }
         .modal.active { display: flex; }
         .modal-content { background-color: var(--bg-card); border: 1px solid rgba(255, 76, 41, 0.5); width: 100%; max-width: 550px; border-radius: 14px; padding: 25px; position: relative; text-align: center; }
@@ -145,65 +145,104 @@
     <footer><p>&copy; 2026 متجر Apricot Gamers. جميع الحقوق محفوظة.</p></footer>
 
     <script>
-        const productsData = [];
-        const categoriesList = ['cards', 'consoles', 'games', 'accessories'];
-        
-        const titlesPool = {
-            cards: ["بطاقة ستور بلايستيشن أمريكي", "بطاقة ستور بلايستيشن سعودي", "شدات ببجي موبايل UC فوري", "جواهر فري فاير فوري", "بطاقة ستور إكس بوكس", "بطاقة شحن نينتندو eShop", "بطاقة اشتراك بلايستيشن بلس سنوي", "بطاقة ستور بلايستيشن إماراتي"],
-            consoles: ["جهاز PlayStation 5 Slim النسخة الرقمية", "جهاز PlayStation 5 Pro الجديد", "جهاز Xbox Series S الاحترافي", "جهاز Nintendo Switch OLED المطور", "بي سي جيمنج خارق جاهز للالعاب التنافسية"],
-            games: ["لعبة EA Sports FC 26 لجهاز PS5", "لعبة Silent Hill 2 Remake لجهاز PS5", "لعبة Resident Evil 4 Remake", "لعبة Call of Duty الأحدث كاملة", "لعبة Red Dead Redemption 2 النسخة الفاخرة"],
-            accessories: ["شاشة ألعاب Fantech منحنية فائقة الاستجابة", "جهاز تحكم ذكي للهواتف معالج للانجراف", "ميكروفون محترف للبث وتسجيل الألعاب", "ماوس باد ألعاب كبير مقاوم للسوائل", "قطع غيار أنالوج Hall Effect ليد PS5"]
-        };
+        // مسار سطح المكتب المحلي الخاص بك كخيار احتياطي للتجربة المحلية
+        const localDesktopPath = "C:/Users/ymz_3/Desktop/";
 
-        const descPool = "منتج أصلي ومميز، يوفر لك أفضل أداء وتجربة ألعاب ممكنة مع كفالة وضمان حقيقي من متجرنا.";
+        // مصفوفة المنتجات الـ 64 مرتبة يدوياً وبالتسمية الصحيحة 100% لكل صورة وقسمها
+        const productsData = [
+            // --- فرع البطاقات الرقمية والستور (cards) ---
+            { id: 1, category: "cards", title: "اشتراك بلايستيشن بلس 12 شهر (PlayStation Plus)", image: "png (1).png", desc: "استمتع بألعاب الأونلاين ومكتبة الألعاب الضخمة للـ PS4 والـ PS5.", hasVariants: true, variants: [{ name: "باقة أساسي (Essential)", price: 30.00 }, { name: "باقة إضافي (Extra)", price: 35.00 }, { name: "باقة فاخر (Premium)", price: 39.00 }] },
+            { id: 6, category: "cards", title: "بطاقات ستور بلايستيشن الأمريكي (PSN USA)", image: "png (6).png", desc: "شحن رصيد رقمي فوري لشراء الألعاب من الستور الأمريكي مباشرة وبأمان.", hasVariants: true, variants: [{ name: "فئة 10 دولار أمريكي", price: 7.90 }, { name: "فئة 20 دولار أمريكي", price: 15.50 }, { name: "فئة 50 دولار أمريكي", price: 38.00 }, { name: "فئة 100 دولار أمريكي", price: 74.50 }] },
+            { id: 7, category: "cards", title: "بطاقات ستور بلايستيشن السعودي (PSN KSA)", image: "png (7).png", desc: "شحن المحفظة الرقمية للحساب السعودي للاستمتاع بالألعاب والإضافات المعربة.", hasVariants: true, variants: [{ name: "فئة 10 دولار سعودي", price: 8.20 }, { name: "فئة 20 دولار سعودي", price: 16.30 }, { name: "فئة 50 دولار سعودي", price: 39.50 }] },
+            { id: 8, category: "cards", title: "شدات ببجي موبايل (PUBG UC) شحن فوري", image: "png (8).png", desc: "حزم شحن فوري وآمن لشدات ببجي موبايل عبر الـ ID الخاص بك لفتح الرويال باس.", hasVariants: true, variants: [{ name: "شحن 325 شدة (UC)", price: 4.00 }, { name: "شحن 660 شدة (UC)", price: 7.80 }, { name: "شحن 1800 شدة (UC)", price: 19.50 }] },
+            { id: 15, category: "cards", title: "بطاقة شحن جواهر فري فاير (Free Fire)", image: "png (15).png", desc: "شحن فوري بالمعرف الشخصي لشراء أحدث الأشكال والشخصيات التنافسية.", hasVariants: true, variants: [{ name: "شحن 100 جوهرة", price: 1.50 }, { name: "شحن 210 جوهرة", price: 3.00 }, { name: "شحن 530 جوهرة", price: 7.00 }] },
+            { id: 16, category: "cards", title: "بطاقات شحن ستور إكس بوكس (Xbox Gift Card)", image: "png (16).png", desc: "رصيد رقمي لشراء ألعاب ومنصات إكس بوكس والاشتراك في خدمة Game Pass الشهيرة.", hasVariants: true, variants: [{ name: "فئة 10 دولار", price: 8.00 }, { name: "فئة 25 دولار", price: 19.50 }, { name: "فئة 50 دولار", price: 38.50 }] },
+            { id: 17, category: "cards", title: "بطاقة شحن نينتندو (Nintendo eShop)", image: "png (17).png", desc: "اشحن حساب السويتش الخاص بك لشراء أقوى الألعاب الحصرية مباشرة من المتجر الرقمي.", hasVariants: true, variants: [{ name: "فئة 10 دولار نينتندو", price: 8.50 }, { name: "فئة 20 دولار نينتندو", price: 16.90 }, { name: "فئة 50 دولار نينتندو", price: 41.00 }] },
+            { id: 18, category: "cards", title: "بطاقة ستور بلايستيشن إماراتي (PSN UAE)", image: "png (18).png", desc: "بطاقات شحن رقمية مخصصة للحسابات الإماراتية بأسعار منافسة وتسليم فوري.", hasVariants: true, variants: [{ name: "فئة 10 دولار إماراتي", price: 8.30 }, { name: "فئة 20 دولار إماراتي", price: 16.50 }, { name: "فئة 50 دولار إماراتي", price: 40.00 }] },
+            { id: 19, category: "cards", title: "بطاقة اشتراك Xbox Game Pass Ultimate", image: "png (19).png", desc: "الوصول غير المحدود لأكثر من 100 لعبة عالية الجودة على الكمبيوتر والإكس بوكس.", hasVariants: true, variants: [{ name: "اشتراك شهر واحد", price: 11.00 }, { name: "اشتراك 3 أشهر", price: 29.00 }] },
+            { id: 20, category: "cards", title: "بطاقات شحن ستيم العالمي (Steam Gift Cards)", image: "png (20).png", desc: "اشحن محفظة ستيم الخاصة بك لشراء ألعاب الكمبيوتر والتجميعات الرقمية المتنوعة.", hasVariants: true, variants: [{ name: "فئة 10 دولار ستيم", price: 8.90 }, { name: "فئة 25 دولار ستيم", price: 21.50 }, { name: "فئة 50 دولار ستيم", price: 42.00 }] },
+            { id: 21, category: "cards", title: "بطاقة شحن روبلوكس (Roblox Robux)", image: "png (21).png", desc: "احصل على عملة Robux لتخصيص شخصيتك وشراء الترقيات المفضلة داخل عالم روبلوكس الممتع.", hasVariants: true, variants: [{ name: "فئة 10 دولار (800 Robux)", price: 8.25 }, { name: "فئة 25 دولار (2000 Robux)", price: 20.00 }] },
+            { id: 22, category: "cards", title: "بطاقة شحن رصيد ريزر جولد (Razer Gold Global)", image: "png (22).png", desc: "العملة الافتراضية الموحدة للاعبين لشحن ألعاب الموبايل والألعاب الاستراتيجية والتنافسية الكبرى.", hasVariants: true, variants: [{ name: "فئة 10 دولار ريزر", price: 8.10 }, { name: "فئة 20 دولار ريزر", price: 16.20 }, { name: "فئة 50 دولار ريزر", price: 39.90 }] },
+            { id: 23, category: "cards", title: "بطاقة ستور بلايستيشن كويتي (PSN Kuwait)", image: "png (23).png", desc: "بطاقات شحن للمحفظة الرقمية الخاصة بالحسابات الكويتية لشراء أحدث الألعاب.", hasVariants: true, variants: [{ name: "فئة 10 دولار كويتي", price: 8.40 }, { name: "فئة 20 دولار كويتي", price: 16.80 }] },
+            { id: 24, category: "cards", title: "بطاقة شحن آيتونز وعالم أبل (iTunes US)", image: "png (24).png", desc: "اشحن حساب App Store لشراء التطبيقات، الألعاب، والمساحات التخزينية لجهاز الآيفون.", hasVariants: true, variants: [{ name: "فئة 10 دولار أبل", price: 8.50 }, { name: "فئة 25 دولار أبل", price: 21.00 }] },
+            { id: 25, category: "cards", title: "بطاقة شحن جوجل بلاي الأمريكي (Google Play US)", image: "png (25).png", desc: "شحن حساب الأندرويد لشراء الإضافات وحزم ألعاب الهواتف الذكية بشكل مباشر وآمن.", hasVariants: true, variants: [{ name: "فئة 10 دولار جوجل", price: 8.35 }, { name: "فئة 25 دولار جوجل", price: 20.50 }] },
+            { id: 26, category: "cards", title: "بطاقة اشتراك EA Play لمنصة البلايستيشن", image: "png (26).png", desc: "استمتع بتجربة ألعاب شركة EA الشهيرة والحصول على خصومات حصرية وتجارب مبكرة للألعاب.", hasVariants: true, variants: [{ name: "اشتراك 1 شهر", price: 5.50 }, { name: "اشتراك 12 شهر (سنوي)", price: 28.00 }] },
 
-        // جلب الصور مباشرة وبكل سهولة بالاعتماد على تواجد الملف والصور في نفس المجلد
-        for (let i = 1; i <= 64; i++) {
-            let cat = categoriesList[i % categoriesList.length];
-            let pool = titlesPool[cat];
-            let baseTitle = pool[i % pool.length] + ` (رقم ${i})`;
-            
-            let hasVars = (cat === 'cards' || cat === 'consoles');
-            let itemPrice = 10 + (i * 2.5);
-            
-            let variantsArr = [];
-            if (hasVars) {
-                if (cat === 'cards') {
-                    variantsArr = [
-                        { name: "الفئة الأساسية", price: itemPrice },
-                        { name: "الفئة المتوسطة", price: itemPrice + 10 },
-                        { name: "الفئة الكبرى", price: itemPrice + 25 }
-                    ];
-                } else {
-                    variantsArr = [
-                        { name: "سعة تخزين القياسية", price: itemPrice + 130 },
-                        { name: "سعة تخزين مضاعفة", price: itemPrice + 200 }
-                    ];
-                }
-            }
+            // --- فرع الأجهزة والمنصات (consoles) ---
+            { id: 2, category: "consoles", title: "جهاز Sony PlayStation 5 Pro الاحترافي", price: 710.00, image: "png (2).png", desc: "جهاز بلايستيشن 5 برو الجديد كلياً بأقوى أداء رسومي، تتبع أشعة متطور ومساحة تخزين هائلة لتجربة جيل جديد.", hasVariants: false },
+            { id: 14, category: "consoles", title: "تجميعة بي سي جيمنج المطور (Intel i5 + RTX 3050)", price: 595.00, image: "png (14).png", desc: "معالج i5 الجيل 12، ذاكرة 16GB RAM، كرت شاشة RTX 3050، وهارد SSD 500GB لتشغيل أثقل الألعاب التنافسية بسلاسة.", hasVariants: false },
+            { id: 27, category: "consoles", title: "جهاز PlayStation 5 Slim النسخة الرقمية (Digital)", price: 420.00, image: "png (27).png", desc: "نسخة سليم النحيفة الرقمية بالكامل مع هارد SSD فائق السرعة بسعة 1 تيرا بايت ويد تحكم دوال سينس.", hasVariants: false },
+            { id: 28, category: "consoles", title: "جهاز PlayStation 5 Slim نسخة الأقراص (CD)", price: 470.00, image: "png (28).png", desc: "نسخة سليم النحيفة الداعمة لتشغيل الأقراص والسي دي بدقة 4K الحقيقية ومساحة 1 تيرا بايت.", hasVariants: false },
+            { id: 29, category: "consoles", title: "جهاز Xbox Series X الخارق من مايكروسوفت", price: 490.00, image: "png (29).png", desc: "أسرع وأقوى أجهزة إكس بوكس على الإطلاق بدقة 4K حقيقية وسعة تخزين 1 تيرا بايت فائقة السرعة.", hasVariants: false },
+            { id: 30, category: "consoles", title: "جهاز Xbox Series S الاقتصادي المطور", price: 299.00, image: "png (30).png", desc: "جهاز رقمي بالكامل يقدم أداء الجيل الجديد بحجم صغير ومناسب جداً لتشغيل خدمة الجيم باس التنافسية.", hasVariants: false },
+            { id: 31, category: "consoles", title: "جهاز Nintendo Switch OLED المطور", price: 285.00, image: "png (31).png", desc: "شاشة أوليد بحجم 7 بوصة وألوان زاهية لتجربة اللعب المحمول والمنزلي لأقوى ألعاب نينتندو الحصرية.", hasVariants: false },
+            { id: 32, category: "consoles", title: "تجميعة بي سي جيمنج برو (Intel i7 + RTX 4060)", price: 790.00, image: "png (32).png", desc: "تجميعة خارقة مخصصة لصناع المحتوى واللاعبين المحترفين: معالج i7، كرت RTX 4060، رام 32 جيجا لهزيمة الخصوم.", hasVariants: false },
+            { id: 33, category: "consoles", title: "جهاز الألعاب المحمول الذكي ASUS ROG Ally", price: 540.00, image: "png (33).png", desc: "جهاز كمبيوتر جيمنج محمول يعمل بنظام ويندوز 11 لتشغيل كل ألعاب المنصات وستيم في يدك أينما كنت.", hasVariants: false },
+            { id: 34, category: "consoles", title: "جهاز لينوفو المحمول المطور Lenovo Legion Go", price: 599.00, image: "png (34).png", desc: "شاشة ضخمة بمقاس 8.8 بوصة ومعدل تحديث 144Hz مع أيدي تحكم قابلة للفصل لتجربة ترفيهية متكاملة.", hasVariants: false },
+            { id: 35, category: "consoles", title: "جهاز الألعاب الكلاسيكي المطور (Retro Games Console)", price: 25.00, image: "png (35).png", desc: "جهاز يحتوي على أكثر من 10,000 لعبة كلاسيكية من ألعاب زمان (السيجا، العائلة، السوبر نينتندو) مع يدين لاسلكيتين.", hasVariants: false },
+            { id: 36, category: "consoles", title: "نظارة الواقع الافتراضي الاحترافية Meta Quest 3", price: 460.00, image: "png (36).png", desc: "عش داخل اللعبة مع نظارة الواقع الافتراضي والمعزز المستقلة تماماً بدون الحاجة لأسلاك أو كمبيوتر.", hasVariants: false },
 
-            productsData.push({
-                id: i,
-                category: cat,
-                title: baseTitle,
-                image: `png (${i}).png`, // مسار نسبي مباشر وآمن
-                desc: descPool,
-                hasVariants: hasVars,
-                price: hasVars ? null : itemPrice,
-                variants: hasVars ? variantsArr : null
-            });
-        }
+            // --- فرع الألعاب والأقراص (games) ---
+            { id: 3, category: "games", title: "لعبة Silent Hill 2 ريميك لجهاز PS5", price: 46.00, image: "png (3).png", desc: "نسخة ريميك للعبة الرعب النفسي والغموض الأسطورية الغنية عن التعريف مع رسومات جيل جديد بالكامل.", hasVariants: false },
+            { id: 4, category: "games", title: "لعبة EA Sports FC 26 لجهاز PS5", price: 41.00, image: "png (4).png", desc: "النسخة الأحدث والأكثر واقعية من محاكاة كرة القدم العالمية بأطوار تنافسية حماسية وممتازة.", hasVariants: false },
+            { id: 5, category: "games", title: "لعبة Resident Evil 4 Remake لجهاز PS5", price: 25.00, image: "png (5).png", desc: "نسخة ريميك الأسطورية لإنقاذ ابنة الرئيس من الطائفة الغامضة بأكشن ورعب يحبس الأنفاس.", hasVariants: false },
+            { id: 37, category: "games", title: "لعبة Grand Theft Auto V (GTA 5) Premium", price: 19.90, image: "png (37).png", desc: "النسخة المحسنة للجيل الجديد مع طور الأونلاين التنافسي المفتوح ومكافآت البداية المليونية.", hasVariants: false },
+            { id: 38, category: "games", title: "لعبة Red Dead Redemption 2 لجهاز PS5/PS4", price: 24.00, image: "png (38).png", desc: "أقوى قصة وعالم مفتوح في تاريخ الألعاب، قصة آرثر مورغان وعصابة دوتش في الغرب الأمريكي المتوحش.", hasVariants: false },
+            { id: 39, category: "games", title: "لعبة Elden Ring لجهاز بلايستيشن 5", price: 45.00, image: "png (39).png", desc: "لعبة السنة الأسطورية من استوديو FromSoftware، واجه الملوك والوحوش في عالم الأراضي الوسطى الشاسع.", hasVariants: false },
+            { id: 40, category: "games", title: "لعبة Marvel's Spider-Man 2 لجهاز PS5", price: 49.00, image: "png (40).png", desc: "تأرجح في نيويورك مع بيتر باركر ومايلز موراليس لمواجهة الشرير فينوم وكرافين الصياد برسم خارق.", hasVariants: false },
+            { id: 41, category: "games", title: "لعبة God of War Ragnarok لجهاز PS5", price: 38.00, image: "png (41).png", desc: "رحلة كريتوس وأتريوس الملحمية عبر العوالم التسعة في الأساطير الإسكندنافية لمواجهة أودين وثور.", hasVariants: false },
+            { id: 42, category: "games", title: "لعبة Hogwarts Legacy لجهاز PS5", price: 32.00, image: "png (42).png", desc: "عش حياتك كطالب في مدرسة هوجوورتس للسحر والشعوذة في عالم هاري بوتر المفتوح والمثير.", hasVariants: false },
+            { id: 43, category: "games", title: "لعبة Call of Duty: Black Ops 6 الجديدة", price: 59.00, image: "png (43).png", desc: "النسخة الأحدث من كول أوف ديوتي بأقوى طور قصة تجسسي، وأطوار الأونلاين والزومبي الأسطورية.", hasVariants: false },
+            { id: 44, category: "games", title: "لعبة Cyberpunk 2077: Ultimate Edition", price: 35.00, image: "png (44).png", desc: "تتضمن اللعبة الكاملة وقصة التوسعة الخارقة Phantom Liberty في مدينة المستقبل نايت سيتي.", hasVariants: false },
+            { id: 45, category: "games", title: "لعبة Assassin's Creed Shadows لجهاز PS5", price: 55.00, image: "png (45).png", desc: "اكتشف اليابان الإقطاعية وعالم الشينوبي والساموراي المذهل في الجزء الأحدث من السلسلة الشهيرة.", hasVariants: false },
+            { id: 46, category: "games", title: "لعبة The Last of Us Part I Remake", price: 39.00, image: "png (46).png", desc: "رحلة جويل وإيلي الأسطورية برسم جيل جديد مبني بالكامل للاستفادة من قدرات البلايستيشن 5 الخارقة.", hasVariants: false },
+            { id: 47, category: "games", title: "لعبة Minecraft Legends لجهاز المكونات", price: 22.00, image: "png (47).png", desc: "لعبة الاستراتيجية والأكشن الممتعة في عالم ماين كرافت، قد جيوشك لإنقاذ العالم من غزو البيجلينز.", hasVariants: false },
+            { id: 48, category: "games", title: "لعبة Tekken 8 لجهاز بلايستيشن 5", price: 44.00, image: "png (48).png", desc: "أسطورة ألعاب القتال التنافسية تعود بجيل جديد، 32 مقاتلاً، وآليات ضربات ساحقة وجديدة كلياً.", hasVariants: false },
+            { id: 49, category: "games", title: "لعبة Gran Turismo 7 المحاكية للواقع", price: 34.00, image: "png (49).png", desc: "أفضل محاكاة لسباقات السيارات في العالم، مئات السيارات الرياضية والمسارات والتحكم الاحترافي الدقيق.", hasVariants: false },
+
+            // --- فرع الملحقات والإكسسوارات (accessories) ---
+            { id: 9, category: "accessories", title: "شاشة ألعاب Fantech Chimera GM242AC منحنية", price: 105.00, image: "png (9).png", desc: "شاشة منحنية بمقاس 24.5 بوصة بدقة FHD وسرعة استجابة فائقة وتردد 75Hz تمنحك الأفضلية في الألعاب التنافسية.", hasVariants: false },
+            { id: 10, category: "accessories", title: "جهاز تحكم الألعاب الذكي GameSir X5 Lite للهواتف", price: 28.00, image: "png (10).png", desc: "قبضة تحكم ذكية واحترافية للهواتف لمنع ظاهرة الانجراف (Stick Drift) لراحة فائقة في اللعب السريعة.", hasVariants: false },
+            { id: 11, category: "accessories", title: "ميكروفون محترف Fantech MC20 Condenser", price: 21.99, image: "png (11).png", desc: "ميكروفون احترافي لتسجيل الصوت والقيام بالبث المباشر بدقة ووضوح عالي مع ميزة عزل الضوضاء الذاتية.", hasVariants: false },
+            { id: 12, category: "accessories", title: "ماوس باد ألعاب Fantech MP453 Agile الكبير", price: 8.00, image: "png (12).png", desc: "قاعدة ماوس احترافية مصممة للتحكم السريع والدقيق جداً بمقاس 35x30 سم ومقاومة للانزلاق والسوائل.", hasVariants: false },
+            { id: 13, category: "accessories", title: "قطعة غيار أنالوج ليد تحكم بلايستيشن 5 (Hall Effect)", price: 13.00, image: "png (13).png", desc: "قطع غيار مغناطيسية متطورة لحل مشكلة حدوث الانجراف الـ Stick Drift لليد للأبد وعمر أطول ودقة تحكم كاملة.", hasVariants: false },
+            { id: 50, category: "accessories", title: "يد تحكم DualSense اللاسلكية لجهاز PS5 - أبيض", price: 55.00, image: "png (50).png", desc: "يد التحكم الرسمية من سوني مع الميزات الثورية اللمسية والمشغلات التكيفية التفاعلية.", hasVariants: false },
+            { id: 51, category: "accessories", title: "يد تحكم DualSense اللاسلكية - أسود ملكي", price: 58.00, image: "png (51).png", desc: "يد تحكم بلايستيشن 5 باللون الأسود المطفي الفاخر والأداء التفاعلي الاستثنائي.", hasVariants: false },
+            { id: 52, category: "accessories", title: "سماعة المحترفين اللاسلكية Pulse 3D من سوني", price: 79.00, image: "png (52).png", desc: "سماعة الرأس اللاسلكية الرسمية المصممة خصيصاً لتقديم الصوت ثلاثي الأبعاد على أجهزة PS5.", hasVariants: false },
+            { id: 53, category: "accessories", title: "قاعدة شحن أيدي تحكم DualSense الرسمية", price: 24.00, image: "png (53).png", desc: "اشحن يدين تحكم معاً في نفس الوقت بسرعة وسهولة دون الحاجة لربطهما بجهاز البلايستيشن.", hasVariants: false },
+            { id: 54, category: "accessories", title: "يد تحكم إكس بوكس اللاسلكية الاحترافية - أسود", price: 48.00, image: "png (54).png", desc: "يد التحكم الرسمية من مايكروسوفت المتوافقة مع أجهزة إكس بوكس، الكمبيوتر، والهواتف الذكية.", hasVariants: false },
+            { id: 55, category: "accessories", title: "سماعة القيمنق المحيطية HyperX Cloud II الشهيرة", price: 65.00, image: "png (55).png", desc: "السماعة المفضلة للاعبي البطولات التنافسية، صوت محيطي 7.1 وراحة فائقة للأذن لجلسات اللعب الطويلة.", hasVariants: false },
+            { id: 56, category: "accessories", title: "كيبورد ألعاب ميكانيكي Fantech Max Core MK852", price: 29.00, image: "png (56).png", desc: "كيبورد ميكانيكي كامل بإضاءة RGB مذهلة واستجابة سريعة جداً مناسبة للألعاب السريعة.", hasVariants: false },
+            { id: 57, category: "accessories", title: "ماوس جيمنج احترافي Logitech G502 Hero", price: 39.00, image: "png (57).png", desc: "الماوس الأكثر مبيعاً في العالم، مستشعر بدقة 25K وأوزان قابلة للتعديل وأزرار جانبية مخصصة.", hasVariants: false },
+            { id: 58, category: "accessories", title: "وحدة تخزين SSD M.2 هارد تيرابايت للـ PS5", price: 85.00, image: "png (58).png", desc: "ذاكرة داخلية فائقة السرعة مع مشتت حراري مخصص لزيادة مساحة تخزين ألعاب البلايستيشن 5 دون خسارة الأداء.", hasVariants: false },
+            { id: 59, category: "accessories", title: "كابل HDMI 2.1 احترافي يدعم دقة 8K و 120Hz", price: 12.00, image: "png (59).png", desc: "كابل عالي الجودة ومحمي لنقل أقصى قدرات أجهزة الجيل الجديد للشاشات المتطورة بدون تقطيع.", hasVariants: false },
+            { id: 60, category: "accessories", title: "قاعدة تبريد ومروحة متعددة الوظائف لجهاز PS5", price: 18.50, image: "png (60).png", desc: "قاعدة عمودية تحتوي على مراوح تبريد ذكية، ستاند للألعاب وقاعدة لشحن الأيدي معاً.", hasVariants: false },
+            { id: 61, category: "accessories", title: "يد التحكم الاحترافية DualSense Edge للـ PS5", price: 185.00, image: "png (61).png", desc: "نسخة النخبة من يد التحكم، أزرار خلفية قابلة للتبديل، أغطية عصا تحكم، وتخصيص كامل للأداء.", hasVariants: false },
+            { id: 62, category: "accessories", title: "كابل شحن سريع ومحمي Type-C بطول 3 أمتار", price: 5.00, image: "png (62).png", desc: "كابل قماشي قوي ومتين جداً مخصص لشحن أيدي التحكم والهواتف أثناء اللعب من مسافة مريحة.", hasVariants: false },
+            { id: 63, category: "accessories", title: "غطاء حماية سيليكون ملون ليد تحكم PS5", price: 3.50, image: "png (63).png", desc: "جراب سيليكون مريح يمنع تعرق اليدين ويحمي يد التحكم من السقوط والخدوش مع جلود للأنالوج.", hasVariants: false },
+            { id: 64, category: "accessories", title: "حقيبة سفر محمية مخصصة لجهاز البلايستيشن 5", price: 22.00, image: "png (64).png", desc: "حقيبة مبطنة ومقاومة للصدمات والماء لحمل جهاز PS5، أيدي التحكم، الكابلات، والألعاب بأمان كامل.", hasVariants: false }
+        ];
 
         let cart = [];
         let currentOpenedProductId = null;
         let currentCategory = 'all';
+
+        // دالة ذكية: إذا فشل الموقع في تحميل الصورة من جيت هاب، يجرب قراءتها من سطح مكتبك مباشرة لتسهيل التجربة المحلية
+        function handleImageError(imgElement, imgName) {
+            if (!imgElement.getAttribute('data-tried-local')) {
+                imgElement.setAttribute('data-tried-local', 'true');
+                imgElement.src = localDesktopPath + imgName;
+            } else {
+                imgElement.src = 'https://placehold.co/240x220/121824/ff4c29?text=Image';
+            }
+        }
 
         function displayProducts(products) {
             const grid = document.getElementById('productsGrid');
             grid.innerHTML = '';
             
             if(products.length === 0) {
-                grid.innerHTML = '<p style="grid-column:1/-1; text-align:center; color:var(--text-muted);">لم يتم العثور على أي منتج</p>';
+                grid.innerHTML = '<p style="grid-column:1/-1; text-align:center; color:var(--text-muted); padding: 40px;">لم يتم العثور على أي منتج</p>';
                 return;
             }
 
@@ -215,7 +254,7 @@
                 card.className = 'product-card';
                 card.innerHTML = `
                     <div class="image-wrapper" onclick="openProduct(${p.id})">
-                        <img src="${p.image}" alt="${p.title}" id="img-prod-${p.id}" onerror="this.onerror=null; this.src='https://placehold.co/240x220/121824/ff4c29?text=Image+(${p.id})';">
+                        <img src="${p.image}" alt="${p.title}" id="img-prod-${p.id}" onerror="handleImageError(this, '${p.image}')">
                     </div>
                     <div class="product-info">
                         <div class="product-title" onclick="openProduct(${p.id})">${p.title}</div>
@@ -305,6 +344,7 @@
             displayProducts(base.filter(p => p.title.toLowerCase().includes(q)));
         });
 
+        // تشغيل العرض لأول مرة
         displayProducts(productsData);
     </script>
 </body>
