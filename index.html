@@ -2742,3 +2742,634 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apricot Gamers | المتجر الاحترافي المطور</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #080b10;
+            --bg-card: #121824;
+            --primary: #ff4c29;
+            --primary-hover: #ff684a;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --accent: #1e293b;
+            --success: #10b981;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; }
+
+        header {
+            background-color: rgba(8, 11, 16, 0.9); position: sticky; top: 0; z-index: 100;
+            border-bottom: 2px solid rgba(255, 76, 41, 0.2); backdrop-filter: blur(12px);
+            padding: 15px 5%; display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .logo { font-size: 1.8rem; font-weight: 900; color: var(--text-main); text-decoration: none; }
+        .logo span { color: var(--primary); }
+
+        .search-container { flex: 0 1 400px; }
+        .search-container input {
+            width: 100%; padding: 10px 20px; background-color: var(--bg-card);
+            border: 1px solid var(--accent); border-radius: 30px; color: var(--text-main);
+        }
+
+        .cart-icon-container {
+            cursor: pointer; background: var(--bg-card); padding: 8px 20px;
+            border-radius: 25px; border: 1px solid var(--accent); font-weight: 600;
+        }
+
+        .cart-count { background-color: var(--primary); color: white; padding: 2px 8px; border-radius: 6px; margin-right: 5px; }
+
+        /* شريط الأقسام الذكي المماثل للموقع المطلوب */
+        .categories-tabs {
+            display: flex; justify-content: center; gap: 15px; margin: 30px 5% 15px 5%;
+            overflow-x: auto; padding-bottom: 10px;
+        }
+
+        .tab-btn {
+            background-color: var(--bg-card); border: 1px solid var(--accent); color: var(--text-muted);
+            padding: 10px 24px; border-radius: 30px; font-weight: 700; cursor: pointer; white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background-color: var(--primary); color: white; border-color: var(--primary);
+            box-shadow: 0 0 12px rgba(255, 76, 41, 0.3);
+        }
+
+        .main-container { padding: 15px 5% 40px 5%; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+
+        .product-card {
+            background-color: var(--bg-card); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.03);
+            overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s;
+        }
+        .product-card:hover { transform: translateY(-5px); border-color: rgba(255, 76, 41, 0.3); }
+
+        .image-wrapper { width: 100%; height: 220px; background-color: #171f2e; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .product-card img { width: 100%; height: 100%; object-fit: contain; padding: 12px; }
+
+        .product-info { padding: 15px; display: flex; flex-direction: column; flex-grow: 1; }
+        .product-title { font-size: 1rem; font-weight: 700; margin-bottom: 8px; min-height: 45px; cursor: pointer; }
+        .product-title:hover { color: var(--primary); }
+
+        .price-row { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+        .price-tag { color: var(--primary); font-weight: 700; }
+
+        .add-to-cart-btn { background-color: var(--primary); color: white; border: none; padding: 6px 14px; border-radius: 6px; font-weight: 700; cursor: pointer; }
+
+        /* نافذة البوب أب والسلة */
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(8px); display: none; justify-content: center; align-items: center; z-index: 1000; padding: 20px; }
+        .modal.active { display: flex; }
+        .modal-content { background-color: var(--bg-card); border: 1px solid rgba(255, 76, 41, 0.5); width: 100%; max-width: 550px; border-radius: 14px; padding: 25px; position: relative; text-align: center; }
+        .close-modal { position: absolute; top: 10px; left: 15px; font-size: 1.8rem; color: var(--text-muted); cursor: pointer; }
+        .modal-img { width: 100%; max-height: 220px; object-fit: contain; margin-bottom: 15px; background: #171f2e; padding: 10px; border-radius: 8px; }
+        .variant-select { width: 100%; padding: 10px; background-color: var(--bg-dark); border: 1px solid var(--primary); border-radius: 6px; color: white; font-weight: 600; margin: 10px 0 15px 0; outline: none; }
+
+        .cart-sidebar { position: fixed; top: 0; left: -360px; width: 360px; height: 100%; background-color: var(--bg-card); border-right: 2px solid var(--primary); z-index: 500; transition: left 0.3s; display: flex; flex-direction: column; padding: 20px; }
+        .cart-sidebar.open { left: 0; }
+        .cart-items-container { flex-grow: 1; overflow-y: auto; margin: 15px 0; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; background: var(--bg-dark); padding: 10px; border-radius: 6px; margin-bottom: 10px; }
+        .checkout-btn { background-color: var(--success); color: white; border: none; width: 100%; padding: 12px; font-weight: 700; border-radius: 6px; cursor: pointer; margin-top: 10px; }
+
+        footer { background-color: #040609; padding: 25px; text-align: center; border-top: 1px solid var(--accent); color: var(--text-muted); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">APRICOT <span>GAMERS</span></a>
+        <div class="search-container"><input type="text" id="searchInput" placeholder="ابحث في المتجر..."></div>
+        <div class="cart-icon-container" onclick="toggleCart()">السلة 🛒 <span class="cart-count" id="cartCount">0</span></div>
+    </header>
+
+    <div class="categories-tabs" id="tabsContainer">
+        <button class="tab-btn active" onclick="filterCategory('all', this)">الكل 🔥</button>
+        <button class="tab-btn" onclick="filterCategory('consoles', this)">الأجهزة والمنصات 🎮</button>
+        <button class="tab-btn" onclick="filterCategory('games', this)">الألعاب والأقراص 💿</button>
+        <button class="tab-btn" onclick="filterCategory('cards', this)">بطاقات الشحن والستور 🎟️</button>
+        <button class="tab-btn" onclick="filterCategory('accessories', this)">الملحقات والإكسسوارات 🎧</button>
+    </div>
+
+    <main class="main-container">
+        <div class="products-grid" id="productsGrid"></div>
+    </main>
+
+    <div class="modal" id="productModal" onclick="closeModal(event)">
+        <div class="modal-content">
+            <span class="close-modal" onclick="document.getElementById('productModal').classList.remove('active')">&times;</span>
+            <img src="" alt="" class="modal-img" id="modalImg">
+            <h2 class="modal-title" id="modalTitle" style="font-size:1.3rem; margin-bottom:10px;"></h2>
+            <div id="variantContainer" style="text-align:right;">
+                <label style="font-weight:600; font-size:0.9rem;">اختر الفئة / النوعية:</label>
+                <select id="variantSelect" class="variant-select" onchange="updateModalPrice()"></select>
+            </div>
+            <div class="price-tag" id="modalPrice" style="margin-bottom: 15px; font-size: 1.4rem;"></div>
+            <p id="modalDesc" style="color:var(--text-muted); font-size:0.9rem; margin-bottom:20px; line-height:1.5;"></p>
+            <button class="add-to-cart-btn" id="modalActionBtn" style="width: 100%; padding: 12px;">إضافة إلى السلة 📥</button>
+        </div>
+    </div>
+
+    <div class="cart-sidebar" id="cartSidebar">
+        <h3 style="border-bottom:1px solid var(--accent); padding-bottom:10px;">سلة المشتريات</h3>
+        <div class="cart-items-container" id="cartItems"></div>
+        <div style="border-top: 1px solid var(--accent); padding-top: 10px;">
+            <div style="display:flex; justify-content:space-between; font-weight:700;"><span>المجموع:</span><span id="cartTotal" style="color:var(--primary)">0.00 د.أ</span></div>
+            <button class="checkout-btn" onclick="alert('تواصل معنا لإتمام الدفع السريع عبر CliQ!')">تأكيد الطلب</button>
+        </div>
+    </div>
+
+    <footer><p>&copy; 2026 متجر Apricot Gamers. جميع الحقوق محفوظة.</p></footer>
+
+    <script>
+        // مصفوفة المنتجات المقسمة بدقة حسب النظام الفئوي الجديد للموقع (category)
+        const productsData = [
+            {
+                id: 1, category: "consoles", title: "جهاز Xbox Series S الاحترافي",
+                image: "https://images.unsplash.com/photo-1621259182978-fbf93132d53d?w=400&auto=format&fit=crop&q=60", localBackup: "xbox-series-s.png",
+                desc: "منصة الجيل الجديد بالأداء المدمج الخارق من مايكروسوفت.", hasVariants: true,
+                variants: [{ name: "نسخة 500 جيجابايت (500GB)", price: 260.00 }, { name: "نسخة 1 تيرابايت (1TB) الأسود", price: 315.00 }]
+            },
+            {
+                id: 2, category: "consoles", title: "جهاز Sony PlayStation 5 Slim Digital", price: 435.00,
+                image: "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=400&auto=format&fit=crop&q=60", localBackup: "ps5-slim.png",
+                desc: "جهاز بلايستيشن 5 سليم النسخة الرقمية بمساحة تخزين مدمجة فائقة السرعة ودقة 4K.", hasVariants: false
+            },
+            {
+                id: 3, category: "games", title: "لعبة Silent Hill 2 لجهاز PS5", price: 46.00,
+                image: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=400&auto=format&fit=crop&q=60", localBackup: "silenthill2.png",
+                desc: "ريميك لعبة الرعب النفسي والغموض الأسطورية بأعلى دقة رسومية جيل جديد.", hasVariants: false
+            },
+            {
+                id: 4, category: "games", title: "لعبة EA Sports FC 26 لجهاز PS5", price: 41.00,
+                image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=400&auto=format&fit=crop&q=60", localBackup: "fc26.png",
+                desc: "النسخة الأحدث والأكثر واقعية من محاكاة كرة القدم العالمية بأطوار تنافسية حية.", hasVariants: false
+            },
+            {
+                id: 5, category: "games", title: "لعبة Resident Evil 4 Remake لجهاز PS5", price: 25.00,
+                image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&auto=format&fit=crop&q=60", localBackup: "re4.png",
+                desc: "نسخة ريميك الأسطورية الرائدة لإنقاذ ابنة الرئيس من الطائفة الغامضة.", hasVariants: false
+            },
+            {
+                id: 6, category: "cards", title: "بطاقات ستور بلايستيشن الأمريكي (PSN USA)",
+                image: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=400&auto=format&fit=crop&q=60", localBackup: "psn-us.png",
+                desc: "رصيد رقمي فوري لشراء الألعاب والاشتراكات من الستور الأمريكي.", hasVariants: true,
+                variants: [{ name: "10 دولار", price: 7.90 }, { name: "20 دولار", price: 15.50 }, { name: "50 دولار", price: 38.00 }, { name: "100 دولار", price: 74.50 }]
+            },
+            {
+                id: 7, category: "cards", title: "بطاقات ستور بلايستيشن السعودي (PSN KSA)",
+                image: "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=400&auto=format&fit=crop&q=60", localBackup: "psn-ksa.png",
+                desc: "شحن المحفظة الرقمية للحساب السعودي للاستمتاع بالألعاب المعربة بالكامل.", hasVariants: true,
+                variants: [{ name: "10 دولار", price: 8.20 }, { name: "20 دولار", price: 16.30 }, { name: "50 دولار", price: 39.50 }]
+            },
+            {
+                id: 8, category: "cards", title: "شدات ببجي موبايل (PUBG UC) شحن فوري",
+                image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&auto=format&fit=crop&q=60", localBackup: "pubg-uc.png",
+                desc: "حزم شحن فوري وآمن لشدات ببجي عبر الـ ID الخاص بك مباشرة.", hasVariants: true,
+                variants: [{ name: "325 شدة (UC)", price: 4.00 }, { name: "660 شدة (UC)", price: 7.80 }, { name: "1800 شدة (UC)", price: 19.50 }]
+            },
+            {
+                id: 9, category: "accessories", title: "شاشة ألعاب Fantech Chimera GM242AC", price: 105.00,
+                image: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=400&auto=format&fit=crop&q=60", localBackup: "chimera-monitor.jpg",
+                desc: "شاشة منحنية 24.5 بوصة بدقة FHD وسرعة استجابة مذهلة في المواجهات.", hasVariants: false
+            },
+            {
+                id: 10, category: "accessories", title: "جهاز تحكم الألعاب الذكي GameSir X5 Lite", price: 28.00,
+                image: "https://images.unsplash.com/photo-1592155931584-901ac15763e3?w=400&auto=format&fit=crop&q=60", localBackup: "gamesir.png",
+                desc: "قبضة تحكم احترافية للهواتف الذكية لمنع ظاهرة الانجراف بشكل تام.", hasVariants: false
+            }
+        ];
+
+        let cart = [];
+        let currentOpenedProductId = null;
+        let currentCategory = 'all';
+
+        function displayProducts(products) {
+            productsGrid.innerHTML = '';
+            products.forEach(p => {
+                let initialPrice = p.hasVariants ? p.variants[0].price : p.price;
+                let priceLabel = p.hasVariants ? `يبدأ من ${initialPrice.toFixed(2)} د.أ` : `${initialPrice.toFixed(2)} د.أ`;
+                
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <div class="image-wrapper" onclick="openProduct(${p.id})">
+                        <img src="${p.image}" alt="${p.title}" onerror="this.onerror=null; this.src='${p.localBackup}'; this.onerror=function(){this.src='https://placehold.co/240x220/121824/ff4c29?text=Image';}">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-title" onclick="openProduct(${p.id})">${p.title}</div>
+                        <div class="price-row">
+                            <div class="price-tag">${priceLabel}</div>
+                            <button class="add-to-cart-btn" onclick="openProduct(${p.id})">تصفح 🛒</button>
+                        </div>
+                    </div>
+                `;
+                productsGrid.appendChild(card);
+            });
+        }
+
+        // دالة الفلترة السريعة المماثلة للموقع المطلوب
+        function filterCategory(category, element) {
+            currentCategory = category;
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+            
+            const filtered = category === 'all' ? productsData : productsData.filter(p => p.category === category);
+            displayProducts(filtered);
+        }
+
+        function openProduct(id) {
+            currentOpenedProductId = id;
+            const prod = productsData.find(p => p.id === id);
+            document.getElementById('modalImg').src = prod.image;
+            document.getElementById('modalTitle').innerText = prod.title;
+            document.getElementById('modalDesc').innerText = prod.desc;
+
+            const vContainer = document.getElementById('variantContainer');
+            const vSelect = document.getElementById('variantSelect');
+            
+            if (prod.hasVariants) {
+                vContainer.style.display = 'block';
+                vSelect.innerHTML = '';
+                prod.variants.forEach((v, idx) => {
+                    let opt = document.createElement('option');
+                    opt.value = idx; opt.innerText = `${v.name} (${v.price.toFixed(2)} د.أ)`;
+                    vSelect.appendChild(opt);
+                });
+            } else { vContainer.style.display = 'none'; }
+
+            updateModalPrice();
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        function updateModalPrice() {
+            const prod = productsData.find(p => p.id === currentOpenedProductId);
+            let finalPrice = prod.hasVariants ? prod.variants[document.getElementById('variantSelect').value].price : prod.price;
+            document.getElementById('modalPrice').innerText = finalPrice.toFixed(2) + " د.أ";
+            
+            document.getElementById('modalActionBtn').onclick = function() {
+                addToCart(prod.id, prod.hasVariants ? parseInt(document.getElementById('variantSelect').value) : null);
+                document.getElementById('productModal').classList.remove('active');
+            };
+        }
+
+        function addToCart(id, vIdx) {
+            const prod = productsData.find(p => p.id === id);
+            let title = prod.title + (vIdx !== null ? ` (${prod.variants[vIdx].name})` : '');
+            let price = vIdx !== null ? prod.variants[vIdx].price : prod.price;
+            let key = vIdx !== null ? `${id}-${vIdx}` : id;
+
+            let exist = cart.find(i => i.key === key);
+            if (exist) { exist.qty++; } else { cart.push({ key, title, price, qty: 1 }); }
+            updateCart();
+        }
+
+        function updateCart() {
+            const container = document.getElementById('cartItems'); container.innerHTML = '';
+            let total = 0, count = 0;
+            cart.forEach(i => {
+                total += i.price * i.qty; count += i.qty;
+                container.innerHTML += `<div class="cart-item"><div><b>${i.title}</b><br><span style="color:var(--primary)">${i.qty} × ${i.price.toFixed(2)} د.أ</span></div><button onclick="cart=cart.filter(x=>x.key!=='${i.key}'); updateCart();" style="background:none; border:none; color:red; cursor:pointer;">حذف</button></div>`;
+            });
+            document.getElementById('cartCount').innerText = count;
+            document.getElementById('cartTotal').innerText = total.toFixed(2) + " د.أ";
+        }
+
+        function toggleCart() { document.getElementById('cartSidebar').classList.toggle('open'); }
+        function closeModal(e) { if(e.target.id === 'productModal') document.getElementById('productModal').classList.remove('active'); }
+
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            let q = e.target.value.toLowerCase().trim();
+            let base = currentCategory === 'all' ? productsData : productsData.filter(p => p.category === currentCategory);
+            displayProducts(base.filter(p => p.title.toLowerCase().includes(q)));
+        });
+
+        displayProducts(productsData);
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apricot Gamers | المتجر الاحترافي المطور</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #080b10;
+            --bg-card: #121824;
+            --primary: #ff4c29;
+            --primary-hover: #ff684a;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --accent: #1e293b;
+            --success: #10b981;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; }
+
+        header {
+            background-color: rgba(8, 11, 16, 0.9); position: sticky; top: 0; z-index: 100;
+            border-bottom: 2px solid rgba(255, 76, 41, 0.2); backdrop-filter: blur(12px);
+            padding: 15px 5%; display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .logo { font-size: 1.8rem; font-weight: 900; color: var(--text-main); text-decoration: none; }
+        .logo span { color: var(--primary); }
+
+        .search-container { flex: 0 1 400px; }
+        .search-container input {
+            width: 100%; padding: 10px 20px; background-color: var(--bg-card);
+            border: 1px solid var(--accent); border-radius: 30px; color: var(--text-main);
+        }
+
+        .cart-icon-container {
+            cursor: pointer; background: var(--bg-card); padding: 8px 20px;
+            border-radius: 25px; border: 1px solid var(--accent); font-weight: 600;
+        }
+
+        .cart-count { background-color: var(--primary); color: white; padding: 2px 8px; border-radius: 6px; margin-right: 5px; }
+
+        /* شريط الأقسام */
+        .categories-tabs {
+            display: flex; justify-content: center; gap: 15px; margin: 30px 5% 15px 5%;
+            overflow-x: auto; padding-bottom: 10px;
+        }
+
+        .tab-btn {
+            background-color: var(--bg-card); border: 1px solid var(--accent); color: var(--text-muted);
+            padding: 10px 24px; border-radius: 30px; font-weight: 700; cursor: pointer; white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background-color: var(--primary); color: white; border-color: var(--primary);
+        }
+
+        .main-container { padding: 15px 5% 40px 5%; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+
+        .product-card {
+            background-color: var(--bg-card); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.03);
+            overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s;
+        }
+        .product-card:hover { transform: translateY(-5px); border-color: rgba(255, 76, 41, 0.3); }
+
+        .image-wrapper { width: 100%; height: 220px; background-color: #171f2e; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .product-card img { width: 100%; height: 100%; object-fit: contain; padding: 12px; }
+
+        .product-info { padding: 15px; display: flex; flex-direction: column; flex-grow: 1; }
+        .product-title { font-size: 1rem; font-weight: 700; margin-bottom: 8px; min-height: 45px; cursor: pointer; }
+        .product-title:hover { color: var(--primary); }
+
+        .price-row { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+        .price-tag { color: var(--primary); font-weight: 700; }
+
+        .add-to-cart-btn { background-color: var(--primary); color: white; border: none; padding: 6px 14px; border-radius: 6px; font-weight: 700; cursor: pointer; }
+
+        /* نافذة تفاصيل ونوعية المنتج على نمط شي إن */
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(8px); display: none; justify-content: center; align-items: center; z-index: 1000; padding: 20px; }
+        .modal.active { display: flex; }
+        .modal-content { background-color: var(--bg-card); border: 1px solid rgba(255, 76, 41, 0.5); width: 100%; max-width: 550px; border-radius: 14px; padding: 25px; position: relative; text-align: center; }
+        .close-modal { position: absolute; top: 10px; left: 15px; font-size: 1.8rem; color: var(--text-muted); cursor: pointer; }
+        .modal-img { width: 100%; max-height: 220px; object-fit: contain; margin-bottom: 15px; background: #171f2e; padding: 10px; border-radius: 8px; }
+        
+        /* تنسيق قائمة الخيارات المتجاوبة */
+        .variant-select { width: 100%; padding: 12px; background-color: var(--bg-dark); border: 1px solid var(--primary); border-radius: 8px; color: white; font-weight: 600; margin: 10px 0 15px 0; outline: none; cursor: pointer; }
+
+        .cart-sidebar { position: fixed; top: 0; left: -360px; width: 360px; height: 100%; background-color: var(--bg-card); border-right: 2px solid var(--primary); z-index: 500; transition: left 0.3s; display: flex; flex-direction: column; padding: 20px; }
+        .cart-sidebar.open { left: 0; }
+        .cart-items-container { flex-grow: 1; overflow-y: auto; margin: 15px 0; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; background: var(--bg-dark); padding: 10px; border-radius: 6px; margin-bottom: 10px; }
+        .checkout-btn { background-color: var(--success); color: white; border: none; width: 100%; padding: 12px; font-weight: 700; border-radius: 6px; cursor: pointer; margin-top: 10px; }
+
+        footer { background-color: #040609; padding: 25px; text-align: center; border-top: 1px solid var(--accent); color: var(--text-muted); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">APRICOT <span>GAMERS</span></a>
+        <div class="search-container"><input type="text" id="searchInput" placeholder="ابحث في المتجر..."></div>
+        <div class="cart-icon-container" onclick="toggleCart()">السلة 🛒 <span class="cart-count" id="cartCount">0</span></div>
+    </header>
+
+    <div class="categories-tabs" id="tabsContainer">
+        <button class="tab-btn active" onclick="filterCategory('all', this)">الكل 🔥</button>
+        <button class="tab-btn" onclick="filterCategory('consoles', this)">الأجهزة والمنصات 🎮</button>
+        <button class="tab-btn" onclick="filterCategory('games', this)">الألعاب والأقراص 💿</button>
+        <button class="tab-btn" onclick="filterCategory('cards', this)">بطاقات الشحن والستور 🎟️</button>
+        <button class="tab-btn" onclick="filterCategory('accessories', this)">الملحقات والإكسسوارات 🎧</button>
+    </div>
+
+    <main class="main-container">
+        <div class="products-grid" id="productsGrid"></div>
+    </main>
+
+    <div class="modal" id="productModal" onclick="closeModal(event)">
+        <div class="modal-content">
+            <span class="close-modal" onclick="document.getElementById('productModal').classList.remove('active')">&times;</span>
+            <img src="" alt="" class="modal-img" id="modalImg">
+            <h2 class="modal-title" id="modalTitle" style="font-size:1.3rem; margin-bottom:10px;"></h2>
+            
+            <div id="variantContainer" style="text-align:right;">
+                <label style="font-weight:600; font-size:0.9rem;">حدد النوعية أو القيمة الفئة المطلوبة:</label>
+                <select id="variantSelect" class="variant-select" onchange="updateModalPrice()"></select>
+            </div>
+            
+            <div class="price-tag" id="modalPrice" style="margin-bottom: 15px; font-size: 1.4rem;"></div>
+            <p id="modalDesc" style="color:var(--text-muted); font-size:0.9rem; margin-bottom:20px; line-height:1.5; text-align:right;"></p>
+            <button class="add-to-cart-btn" id="modalActionBtn" style="width: 100%; padding: 12px;">إضافة إلى السلة 📥</button>
+        </div>
+    </div>
+
+    <div class="cart-sidebar" id="cartSidebar">
+        <h3 style="border-bottom:1px solid var(--accent); padding-bottom:10px;">سلة المشتريات</h3>
+        <div class="cart-items-container" id="cartItems"></div>
+        <div style="border-top: 1px solid var(--accent); padding-top: 10px;">
+            <div style="display:flex; justify-content:space-between; font-weight:700;"><span>المجموع:</span><span id="cartTotal" style="color:var(--primary)">0.00 د.أ</span></div>
+            <button class="checkout-btn" onclick="alert('تواصل معنا لإتمام الدفع السريع عبر CliQ!')">تأكيد الطلب</button>
+        </div>
+    </div>
+
+    <footer><p>&copy; 2026 متجر Apricot Gamers. جميع الحقوق محفوظة.</p></footer>
+
+    <script>
+        const productsData = [
+            {
+                id: 1, category: "consoles", title: "جهاز Xbox Series S الاحترافي",
+                image: "https://images.unsplash.com/photo-1621259182978-fbf93132d53d?w=400&auto=format&fit=crop&q=60", localBackup: "xbox-series-s.png",
+                desc: "منصة الجيل الجديد بالأداء المدمج الخارق من مايكروسوفت. اختر السعة المناسبة لك لتنزيل كافة ألعابك المفضلة.", hasVariants: true,
+                variants: [{ name: "نسخة 500 جيجابايت (500GB)", price: 260.00 }, { name: "نسخة 1 تيرابايت (1TB) الأسود", price: 315.00 }]
+            },
+            {
+                id: 2, category: "consoles", title: "جهاز Sony PlayStation 5 Slim Digital", price: 435.00,
+                image: "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=400&auto=format&fit=crop&q=60", localBackup: "ps5-slim.png",
+                desc: "جهاز بلايستيشن 5 سليم النسخة الرقمية بمساحة تخزين مدمجة فائقة السرعة ودقة 4K المذهلة.", hasVariants: false
+            },
+            {
+                id: 3, category: "games", title: "لعبة Silent Hill 2 لجهاز PS5", price: 46.00,
+                image: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=400&auto=format&fit=crop&q=60", localBackup: "silenthill2.png",
+                desc: "نسخة ريميك للعبة الرعب النفسي والغموض الأسطورية الغنية عن التعريف مع رسومات جيل جديد بالكامل.", hasVariants: false
+            },
+            {
+                id: 4, category: "games", title: "لعبة EA Sports FC 26 لجهاز PS5", price: 41.00,
+                image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=400&auto=format&fit=crop&q=60", localBackup: "fc26.png",
+                desc: "النسخة الأحدث والأكثر واقعية من محاكاة كرة القدم العالمية بأطوار تنافسية ممتازة وحركات واقعية.", hasVariants: false
+            },
+            {
+                id: 5, category: "games", title: "لعبة Resident Evil 4 Remake لجهاز PS5", price: 25.00,
+                image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&auto=format&fit=crop&q=60", localBackup: "re4.png",
+                desc: "نسخة ريميك الأسطورية لإنقاذ ابنة الرئيس من الطائفة الغامضة بأكشن ورعب يحبس الأنفاس.", hasVariants: false
+            },
+            {
+                id: 6, category: "cards", title: "بطاقات ستور بلايستيشن الأمريكي (PSN USA)",
+                image: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=400&auto=format&fit=crop&q=60", localBackup: "psn-us.png",
+                desc: "شحن رصيد رقمي فوري لشراء الألعاب والاشتراكات والحزم من الستور الأمريكي مباشرة وبأمان.", hasVariants: true,
+                variants: [{ name: "فئة 10 دولار أمريكي", price: 7.90 }, { name: "فئة 20 دولار أمريكي", price: 15.50 }, { name: "فئة 50 دولار أمريكي", price: 38.00 }, { name: "فئة 100 دولار أمريكي", price: 74.50 }]
+            },
+            {
+                id: 7, category: "cards", title: "بطاقات ستور بلايستيشن السعودي (PSN KSA)",
+                image: "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=400&auto=format&fit=crop&q=60", localBackup: "psn-ksa.png",
+                desc: "شحن المحفظة الرقمية للحساب السعودي للاستمتاع بالألعاب والإضافات المعربة بالكامل والمدعومة رسمياً.", hasVariants: true,
+                variants: [{ name: "فئة 10 دولار سعودي", price: 8.20 }, { name: "فئة 20 دولار سعودي", price: 16.30 }, { name: "فئة 50 دولار سعودي", price: 39.50 }]
+            },
+            {
+                id: 8, category: "cards", title: "شدات ببجي موبايل (PUBG UC) شحن فوري",
+                image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&auto=format&fit=crop&q=60", localBackup: "pubg-uc.png",
+                desc: "حزم شحن فوري وآمن لشدات ببجي موبايل عبر الـ ID الخاص بك لفتح الرويال باس والمظاهر النادرة.", hasVariants: true,
+                variants: [{ name: "شحن 325 شدة (UC)", price: 4.00 }, { name: "شحن 660 شدة (UC)", price: 7.80 }, { name: "شحن 1800 شدة (UC)", price: 19.50 }]
+            },
+            {
+                id: 9, category: "accessories", title: "شاشة ألعاب Fantech Chimera GM242AC", price: 105.00,
+                image: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=400&auto=format&fit=crop&q=60", localBackup: "chimera-monitor.jpg",
+                desc: "شاشة منحنية بمقاس 24.5 بوصة بدقة FHD وسرعة استجابة فائقة تمنحك الأفضلية الكاملة في المواجهات والألعاب السريعة.", hasVariants: false
+            },
+            {
+                id: 10, category: "accessories", title: "جهاز تحكم الألعاب الذكي GameSir X5 Lite", price: 28.00,
+                image: "https://images.unsplash.com/photo-1592155931584-901ac15763e3?w=400&auto=format&fit=crop&q=60", localBackup: "gamesir.png",
+                desc: "قبضة تحكم ذكية واحترافية للهواتف لمنع ظاهرة الانجراف (Stick Drift) بشكل تام لراحة فائقة في اللعب.", hasVariants: false
+            }
+        ];
+
+        let cart = [];
+        let currentOpenedProductId = null;
+        let currentCategory = 'all';
+
+        function displayProducts(products) {
+            productsGrid.innerHTML = '';
+            products.forEach(p => {
+                let initialPrice = p.hasVariants ? p.variants[0].price : p.price;
+                let priceLabel = p.hasVariants ? `يبدأ من ${initialPrice.toFixed(2)} د.أ` : `${initialPrice.toFixed(2)} د.أ`;
+                
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <div class="image-wrapper" onclick="openProduct(${p.id})">
+                        <img src="${p.image}" alt="${p.title}" onerror="this.onerror=null; this.src='${p.localBackup}'; this.onerror=function(){this.src='https://placehold.co/240x220/121824/ff4c29?text=Image';}">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-title" onclick="openProduct(${p.id})">${p.title}</div>
+                        <div class="price-row">
+                            <div class="price-tag">${priceLabel}</div>
+                            <button class="add-to-cart-btn" onclick="openProduct(${p.id})">عرض المنتج 🛒</button>
+                        </div>
+                    </div>
+                `;
+                productsGrid.appendChild(card);
+            });
+        }
+
+        function filterCategory(category, element) {
+            currentCategory = category;
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+            
+            const filtered = category === 'all' ? productsData : productsData.filter(p => p.category === category);
+            displayProducts(filtered);
+        }
+
+        // عند الضغط على الصورة يدخل إلى التفاصيل والوصف ليعمل مثل شي إن
+        function openProduct(id) {
+            currentOpenedProductId = id;
+            const prod = productsData.find(p => p.id === id);
+            document.getElementById('modalImg').src = prod.image;
+            document.getElementById('modalTitle').innerText = prod.title;
+            document.getElementById('modalDesc').innerText = prod.desc;
+
+            const vContainer = document.getElementById('variantContainer');
+            const vSelect = document.getElementById('variantSelect');
+            
+            if (prod.hasVariants) {
+                vContainer.style.display = 'block';
+                vSelect.innerHTML = '';
+                prod.variants.forEach((v, idx) => {
+                    let opt = document.createElement('option');
+                    opt.value = idx; opt.innerText = `${v.name} (${v.price.toFixed(2)} د.أ)`;
+                    vSelect.appendChild(opt);
+                });
+            } else { vContainer.style.display = 'none'; }
+
+            updateModalPrice();
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        function updateModalPrice() {
+            const prod = productsData.find(p => p.id === currentOpenedProductId);
+            let finalPrice = prod.hasVariants ? prod.variants[document.getElementById('variantSelect').value].price : prod.price;
+            document.getElementById('modalPrice').innerText = finalPrice.toFixed(2) + " د.أ";
+            
+            document.getElementById('modalActionBtn').onclick = function() {
+                addToCart(prod.id, prod.hasVariants ? parseInt(document.getElementById('variantSelect').value) : null);
+                document.getElementById('productModal').classList.remove('active');
+            };
+        }
+
+        function addToCart(id, vIdx) {
+            const prod = productsData.find(p => p.id === id);
+            let title = prod.title + (vIdx !== null ? ` (${prod.variants[vIdx].name})` : '');
+            let price = vIdx !== null ? prod.variants[vIdx].price : prod.price;
+            let key = vIdx !== null ? `${id}-${vIdx}` : id;
+
+            let exist = cart.find(i => i.key === key);
+            if (exist) { exist.qty++; } else { cart.push({ key, title, price, qty: 1 }); }
+            updateCart();
+        }
+
+        function updateCart() {
+            const container = document.getElementById('cartItems'); container.innerHTML = '';
+            let total = 0, count = 0;
+            cart.forEach(i => {
+                total += i.price * i.qty; count += i.qty;
+                container.innerHTML += `<div class="cart-item"><div><b>${i.title}</b><br><span style="color:var(--primary)">${i.qty} × ${i.price.toFixed(2)} د.أ</span></div><button onclick="cart=cart.filter(x=>x.key!=='${i.key}'); updateCart();" style="background:none; border:none; color:red; cursor:pointer;">حذف</button></div>`;
+            });
+            document.getElementById('cartCount').innerText = count;
+            document.getElementById('cartTotal').innerText = total.toFixed(2) + " د.أ";
+        }
+
+        function toggleCart() { document.getElementById('cartSidebar').classList.toggle('open'); }
+        function closeModal(e) { if(e.target.id === 'productModal') document.getElementById('productModal').classList.remove('active'); }
+
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            let q = e.target.value.toLowerCase().trim();
+            let base = currentCategory === 'all' ? productsData : productsData.filter(p => p.category === currentCategory);
+            displayProducts(base.filter(p => p.title.toLowerCase().includes(q)));
+        });
+
+        displayProducts(productsData);
+    </script>
+</body>
+</html>
