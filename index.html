@@ -185,157 +185,44 @@ https://www.instagram.com/apricot_gamers
 </footer>
 
 </body>
-</html>
-<img src="1292.jpg" style="max-width: 100%; height: auto; object-fit: contain;">
-<h1>متجر Apricot Gamers</h1>
-<button>أضف إلى السلة</button>
-<p>هذا النص يصف المنتج أو القسم هنا.</p>
-const store = {
-  name: "Apricot Gamers",
-
-  products: [
-
-    {
-      id: 1,
-      name: "PlayStation Store Card",
-      category: "PlayStation Cards",
-      description:
-        "Top up your PlayStation account and purchase games, DLCs, subscriptions, and digital content directly from the PlayStation Store.",
-      variants: [
-        { value: "5 USD", price: 4.50 },
-        { value: "10 USD", price: 7.95 },
-        { value: "20 USD", price: 15.90 },
-        { value: "50 USD", price: 36.50 },
-        { value: "100 USD", price: 72.00 }
-      ]
-    },
-
-    {
-      id: 2,
-      name: "Steam Gift Card",
-      category: "Steam Cards",
-      description:
-        "Add funds to your Steam Wallet and purchase games, software, DLCs and in-game items from the Steam Store.",
-      variants: [
-        { value: "5 USD", price: 3.50 },
-        { value: "10 USD", price: 7.00 },
-        { value: "20 USD", price: 14.00 },
-        { value: "50 USD", price: 35.00 },
-        { value: "100 USD", price: 70.00 }
-      ]
-    },
-
-    {
-      id: 3,
-      name: "PUBG Mobile UC",
-      category: "PUBG Mobile",
-      description:
-        "Purchase PUBG Mobile UC and unlock premium outfits, Royale Pass rewards, weapon skins and exclusive content.",
-      variants: [
-        { value: "60 UC", price: 1.10 },
-        { value: "325 UC", price: 5.50 },
-        { value: "660 UC", price: 10.50 },
-        { value: "1800 UC", price: 26.00 },
-        { value: "3850 UC", price: 52.00 },
-        { value: "8100 UC", price: 104.00 }
-      ]
-    },
-
-    {
-      id: 4,
-      name: "Roblox Gift Card",
-      category: "Roblox",
-      description:
-        "Get Robux and unlock premium items, avatars, game passes and exclusive Roblox content.",
-      variants: [
-        { value: "10 USD", price: 8.50 },
-        { value: "15 USD", price: 13.50 },
-        { value: "25 USD", price: 18.75 },
-        { value: "50 USD", price: 36.50 },
-        { value: "100 USD", price: 72.00 },
-        { value: "200 USD", price: 162.00 }
-      ]
-    },
-
-    {
-      id: 5,
-      name: "EA Gift Card",
-      category: "EA",
-      description:
-        "Use EA Gift Cards to purchase games, add-ons and content across EA platforms.",
-      variants: [
-        { value: "15 USD", price: 12.50 },
-        { value: "25 USD", price: 19.50 }
-      ]
-    },
-
-    {
-      id: 6,
-      name: "PlayStation Plus",
-      category: "Subscriptions",
-      description:
-        "Access online multiplayer, monthly games, exclusive discounts and a large catalog of PlayStation titles.",
-      plans: {
-        Essential: {
-          "3 Months": 13,
-          "12 Months": 30
-        },
-        Extra: {
-          "3 Months": 18,
-          "12 Months": 35
-        },
-        Premium: {
-          "3 Months": 20,
-          "12 Months": 39
-        }
-      }
-    },
-
-    {
-      id: 7,
-      name: "Xbox Series S",
-      category: "Gaming Consoles",
-      description:
-        "A compact next-generation Xbox console offering fast loading, high performance and digital gaming.",
-      variants: [
-        { value: "512GB", price: 305 },
-        { value: "1TB", price: 335 }
-      ]
-    }
-  ]
-};
-
-let cart = [];
-
-function addToCart(productName, selectedOption, price) {
-  cart.push({
-    product: productName,
-    option: selectedOption,
-    price: price,
-    quantity: 1
-  });
-
-  updateCartCounter();
-}
-
-function removeFromCart(index) {
-  cart.splice(index, 1);
-  updateCartCounter();
-}
-
-function updateCartCounter() {
-  document.getElementById("cart-count").innerText =
-    cart.length;
-}
-
-function getCartTotal() {
-  return cart.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
-}const websiteRequirements = {
+</html>const APRICOT_GAMERS_CONFIG = {
 
   storeName: "Apricot Gamers",
+
+  currency: "JOD",
+
+  design: {
+    uniqueDesign: true,
+    doNotCopyGamersJo: true,
+    whiteBackgroundProducts: true,
+    premiumGamingTheme: true,
+    responsive: true,
+    animations: true,
+    hoverEffects: true,
+    imageZoom: true,
+    stickyNavbar: true
+  },
+
+  categories: [
+    "Electronic Games",
+    "Gaming Consoles",
+    "Accessories",
+    "PlayStation Store Cards",
+    "Steam Gift Cards",
+    "Roblox Gift Cards",
+    "EA Gift Cards",
+    "PUBG Mobile UC",
+    "PlayStation Plus"
+  ],
+
+  products: {
+    useUploadedImagesOnly: true,
+    preserveImageDimensions: true,
+    noImageOverlap: true,
+    noImageCropping: true,
+    noDuplicateProducts: true,
+    whiteBackgroundImages: true
+  },
 
   productPage: {
     showImage: true,
@@ -343,210 +230,84 @@ function getCartTotal() {
     showDescription: true,
     showPrice: true,
     showSpecifications: true,
-    showAddToCartButton: true
+    showRelatedProducts: true,
+    addToCartButton: true,
+    buyNowButton: true
   },
 
-  shoppingCart: {
+  cart: {
     enabled: true,
     addProducts: true,
     removeProducts: true,
     updateQuantity: true,
     calculateTotal: true,
-    cartCounter: true
+    saveCart: true
   },
 
-  checkout: {
-    enabled: true
-  }
-};{
-  id: "gamesir-x5-lite",
-  name: "GameSir X5 Lite",
-  category: "Accessories",
-  price: 28,
-  currency: "JOD",
-  image: "/images/gamesir-x5-lite.png",
-  description: "Mobile gaming controller with Hall Effect sticks, low latency USB-C connection, anti-drift precision, and pass-through charging support. Designed for Android gaming with a comfortable expandable design.",
-  stock: true
-},
+  search: {
+    instantSearch: true,
+    categoryFilter: true,
+    productFilter: true
+  },
 
-{
-  id: "rgb-mousepad-88cm",
-  name: "RGB Gaming Mouse Pad 88cm",
-  category: "Accessories",
-  price: 13,
-  currency: "JOD",
-  image: "/images/rgb-mousepad-88cm.png",
-  description: "Large RGB gaming mouse pad with adjustable lighting effects, non-slip rubber base, USB powered operation, and extended surface suitable for keyboard and mouse setups.",
-  stock: true
-}const product = {
-  name: "GameSir X5 Lite",
-  price: 28,
-  currency: "JOD"
-};const product = {
-  name: "RGB Gaming Mouse Pad 88cm",
-  price: 13,
-  currency: "JOD"
-};Accessories & Gaming Gear{
-  id: "dualsense-edge-stick-module",
-  name: "DualSense Edge Stick Module",
-  category: "Accessories",
-  price: 43,
-  currency: "JOD",
-  image: "/images/dualsense-edge-stick-module.png",
-  description: "Official Sony replacement stick module for the DualSense Edge wireless controller on PlayStation 5."
-},
+  subscriptions: {
 
-{
-  id: "gamesir-g7-pro",
-  name: "GameSir G7 Pro",
-  category: "Accessories",
-  price: 65,
-  currency: "JOD",
-  image: "/images/gamesir-g7-pro.png",
-  description: "Premium wireless gaming controller featuring Hall Effect joysticks, motion controls, and programmable buttons."
-},
+    playstationPlus: {
 
-{
-  id: "fantech-mc20",
-  name: "Fantech MC20 Professional Condenser Microphone",
-  category: "Accessories",
-  price: 21.99,
-  currency: "JOD",
-  image: "/images/fantech-mc20.png",
-  description: "Professional condenser microphone with intelligent noise reduction and clear voice capture for streaming and gaming."
-},
+      Essential: {
+        "3 Months": 13,
+        "12 Months": 30
+      },
 
-{
-  id: "fantech-mp453-agile",
-  name: "Fantech MP453 Agile Mouse Pad",
-  category: "Accessories",
-  price: 8,
-  currency: "JOD",
-  image: "/images/fantech-mp453-agile.png",
-  description: "Gaming mouse pad optimized for speed and precision with a smooth surface and stable rubber base."
-},
+      Extra: {
+        "3 Months": 18,
+        "12 Months": 35
+      },
 
-{
-  id: "fantech-chimera-gm242ac",
-  name: "Fantech Chimera GM242AC Monitor",
-  category: "Accessories",
-  price: 105,
-  currency: "JOD",
-  image: "/images/fantech-chimera-gm242ac.png",
-  description: "24-inch curved gaming monitor featuring Full HD resolution, 75Hz refresh rate and 5ms response time."
-},
-
-{
-  id: "pulse-elite-headset",
-  name: "PlayStation Pulse Elite Wireless Headset",
-  category: "Accessories",
-  price: 119.99,
-  currency: "JOD",
-  image: "/images/pulse-elite-headset.png",
-  description: "Official PlayStation wireless headset with planar magnetic drivers, long battery life and crystal-clear voice chat."
-},
-
-{
-  id: "minecraft-ps5",
-  name: "Minecraft PS5",
-  category: "Games",
-  price: 28,
-  currency: "JOD",
-  image: "/images/minecraft-ps5.png",
-  description: "Explore, build and survive in the limitless world of Minecraft on PlayStation 5."
-}// Global Store Settings
-
-export const STORE_CONFIG = {
-  storeName: "Apricot Gamers",
-  currency: "JOD",
-  currencySymbol: "JD",
-  locale: "en-JO"
-};
-
-export const formatPrice = (price) => {
-  return `${price.toFixed(2)} JOD`;
-};<div className="text-2xl font-bold text-orange-500">
-  {formatPrice(product.price)}
-</div><div className="product-price">
-  {formatPrice(product.price)}
-</div><div className="cart-total">
-  Total: {formatPrice(cartTotal)}
-</div>const supportedCurrencies = ["JOD"];
-
-function setCurrency(currency) {
-  if (!supportedCurrencies.includes(currency)) {
-    return "JOD";
-  }
-  return currency;
-}{
-  id: "ps5-slim-disc",
-  name: "PlayStation 5 Slim Disc",
-  price: 485,
-  currency: "JOD"
-}
-
-{
-  id: "xbox-series-x-black",
-  name: "Xbox Series X Black",
-  price: 499,
-  currency: "JOD"
-}
-
-{
-  id: "victus-15",
-  name: "HP Victus 15 Gaming Laptop",
-  price: 585,
-  currency: "JOD"
-}const WEBSITE_RULES = {
-  storeName: "Apricot Gamers",
-
-  pricing: {
-    currency: "JOD",
-    currencyName: "Jordanian Dinar",
-
-    displayFormat(price) {
-      return `${price} JOD`;
+      Premium: {
+        "3 Months": 20,
+        "12 Months": 39
+      }
     }
+  },
+
+  variants: {
+
+    xboxSeriesS: [
+      {
+        name: "512GB",
+        price: 305
+      },
+      {
+        name: "1TB",
+        price: 335
+      }
+    ],
+
+    playstationCards: true,
+    steamCards: true,
+    robloxCards: true,
+    eaCards: true,
+    pubgUC: true
+  },
+
+  social: {
+    instagramName: "Apricot Gamers",
+    instagramUrl:
+      "https://www.instagram.com/apricot_gamers"
+  },
+
+  payment: {
+    method: "CliQ",
+    bank: "Arab Bank",
+    number: "+962796507200"
+  },
+
+  seo: {
+    enabled: true,
+    sitemap: true,
+    robotsTxt: true,
+    metaTags: true
   }
-};const PROJECT_REQUIREMENTS = {
-  useJordanianDinar: true,
 
-  priceDisplay: [
-    "485 JOD",
-    "710 JOD",
-    "65 JOD",
-    "28 JOD",
-    "13 JOD"
-  ],
-
-  rules: [
-    "Display all product prices in Jordanian Dinar (JOD)",
-    "Display all game prices in Jordanian Dinar (JOD)",
-    "Display all gift card prices in Jordanian Dinar (JOD)",
-    "Display all subscription prices in Jordanian Dinar (JOD)",
-    "Do not display USD as the main price",
-    "Do not display SAR as the main price",
-    "Do not display AED as the main price"
-  ]
-};Display every product price using Jordanian Dinar (JOD).
-Examples:
-PlayStation 5 Slim Disc — 485 JOD
-PlayStation 5 Pro — 710 JOD
-Minecraft PS5 — 28 JOD
-GameSir X5 Lite — 28 JOD
-RGB Gaming Mouse Pad — 13 JOD
-Steam Gift Card 5 USD — 3.50 JOD
-PlayStation Store Card 5 USD — 4.50 JOD
-
-All prices shown to customers must be displayed in JOD.
-my-store/
-├── index.html
-├── css/
-│   └── style.css
-├── js/
-│   └── script.js
-└── images/
-    └── products/
-        ├── product1.jpg
-        ├── product2.jpg
-        └── ...
+};Build the entire Apricot Gamers ecommerce website using all uploaded products, images, descriptions and prices. Use Jordanian Dinar (JOD) for all displayed prices. Create product pages, shopping cart, subscriptions, gift card variants, Xbox storage variants, search system, filters, SEO optimization and a unique premium gaming design that does not copy Gamers.jo directly.
