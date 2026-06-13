@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apricot Gamers | المتجر الإلكتروني الـ 64</title>
+    <title>Apricot Gamers | المتجر الإلكتروني المطور</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -145,54 +145,108 @@
     <footer><p>&copy; 2026 متجر Apricot Gamers. جميع الحقوق محفوظة.</p></footer>
 
     <script>
-        const productsData = [];
-        const categoriesList = ['cards', 'consoles', 'games', 'accessories'];
+        // الوصف الثابت لجميع المنتجات لتوفير المساحة
+        const defaultDesc = "منتج أصلي ومميز، يوفر لك أفضل أداء وتجربة ألعاب ممكنة مع كفالة وضمان حقيقي من متجرنا.";
+
+        // مصفوفة الـ 64 منتجاً مرتبة ومربوطة بأرقام صور المجلد الحقيقية لمنع اللخبطة
+        const productsData = [
+            // ==================== [ قسم البطاقات الرقمية والستور - cards ] ====================
+            { id: 1, category: "cards", title: "بطاقة هدايا متجر EA Gift Card بقيمة 15$", image: "png (1).png", desc: defaultDesc, hasVariants: false, price: 12.50 },
+            { id: 2, category: "cards", title: "بطاقات شحن روبلوكس Roblox Gift Card بقيمة 10$", image: "png (2).png", desc: defaultDesc, hasVariants: false, price: 8.50 },
+            { id: 8, category: "cards", title: "بطاقة شحن بلايستيشن ستور اللبناني بقيمة 10$", image: "png (8).png", desc: defaultDesc, hasVariants: false, price: 7.95 },
+            { id: 9, category: "cards", title: "بطاقة شحن بلايستيشن ستور القطري بقيمة 10$", image: "png (9).png", desc: defaultDesc, hasVariants: false, price: 7.95 },
+            { id: 10, category: "cards", title: "بطاقة شحن بلايستيشن ستور الكويتي بقيمة 10$", image: "png (10).png", desc: defaultDesc, hasVariants: false, price: 7.95 },
+            { id: 11, category: "cards", title: "بطاقة شحن بلايستيشن ستور السعودي بقيمة 10$", image: "png (11).png", desc: defaultDesc, hasVariants: false, price: 7.95 },
+            { id: 17, category: "cards", title: "بطاقات شحن ستيم الأمريكي بقيمة 5$", image: "png (17).png", desc: defaultDesc, hasVariants: false, price: 5.00 },
+            { id: 18, category: "cards", title: "شدات ببجي موبايل (PUBG UC) شحن فوري ببطاقة ستيم التركي", image: "png (18).png", desc: defaultDesc, hasVariants: false, price: 1.10 },
+            { id: 19, category: "cards", title: "شدات ببجي موبايل (PUBG UC) شحن فوري ببطاقة ستيم السعودي", image: "png (19).png", desc: defaultDesc, hasVariants: false, price: 3.50 },
+            { id: 28, category: "cards", title: "اشتراك بلايستيشن بلس 12 شهر - الفاخر Premium", image: "png (28).png", desc: defaultDesc, hasVariants: false, price: 39.00 },
+            { id: 29, category: "cards", title: "اشتراك بلايستيشن بلس 12 شهر - الإضافي Extra", image: "png (29).png", desc: defaultDesc, hasVariants: false, price: 35.00 },
+            { id: 30, category: "cards", title: "اشتراك بلايستيشن بلس 12 شهر - الأساسي Essential", image: "png (30).png", desc: defaultDesc, hasVariants: false, price: 30.00 },
+            { id: 37, category: "cards", title: "اشتراك بلايستيشن بلس 3 أشهر - الفاخر Premium", image: "png (37).png", desc: defaultDesc, hasVariants: false, price: 20.00 },
+            { id: 38, category: "cards", title: "اشتراك بلايستيشن بلس 3 أشهر - الإضافي Extra", image: "png (38).png", desc: defaultDesc, hasVariants: false, price: 18.00 },
+            { id: 39, category: "cards", title: "اشتراك بلايستيشن بلس 3 أشهر - الأساسي Essential", image: "png (39).png", desc: defaultDesc, hasVariants: false, price: 13.00 },
+            { id: 55, category: "cards", title: "بطاقات شحن بلايستيشن ستور البريطاني بقيمة 5£", image: "png (55).png", desc: defaultDesc, hasVariants: false, price: 4.90 },
+            { id: 56, category: "cards", title: "بطاقات شحن بلايستيشن ستور اللبناني بقيمة 10$", image: "png (56).png", desc: defaultDesc, hasVariants: false, price: 7.95 },
+            { id: 64, category: "cards", title: "بطاقات شحن ستيم الأمريكي بقيمة 25$", image: "png (64).png", desc: defaultDesc, hasVariants: false, price: 25.00 },
+
+            // ==================== [ قسم الأجهزة والمنصات - consoles ] ====================
+            { id: 4, category: "consoles", title: "جهاز PlayStation 5 Disc Edition نسخة الأقراص", image: "png (4).png", desc: defaultDesc, hasVariants: false, price: 485.00 },
+            { id: 5, category: "consoles", title: "جهاز Xbox Series X الخارق من مايكروسوفت", image: "png (5).png", desc: defaultDesc, hasVariants: false, price: 425.00 },
+            { id: 6, category: "consoles", title: "جهاز Xbox Series S الاقتصادي المطور", image: "png (6).png", desc: defaultDesc, hasVariants: false, price: 335.00 },
+            { id: 36, category: "consoles", title: "جهاز PlayStation 5 Slim النسخة الرقمية", image: "png (36).png", desc: defaultDesc, hasVariants: false, price: 435.00 },
+            { id: 52, category: "consoles", title: "شاشة ألعاب Fantech Chimera GM242AC منحنية", image: "png (52).png", desc: defaultDesc, hasVariants: false, price: 105.00 },
+            { id: 57, category: "consoles", title: "نظارة الواقع الافتراضي PlayStation VR2 + Horizon Bundle", image: "png (57).png", desc: defaultDesc, hasVariants: false, price: 360.00 },
+            { id: 63, category: "consoles", title: "كمبيوتر محمول للألعاب HP Victus 15 Gaming Laptop", image: "png (63).png", desc: defaultDesc, hasVariants: false, price: 585.00 },
+
+            // ==================== [ قسم الألعاب والأقراص - games ] ====================
+            { id: 12, category: "games", title: "لعبة Call of Duty: Black Ops 6 لجهاز PS5", image: "png (12).png", desc: defaultDesc, hasVariants: false, price: 45.00 },
+            { id: 13, category: "games", title: "لعبة Battlefield 6 لجهاز PS5", image: "png (13).png", desc: defaultDesc, hasVariants: false, price: 57.00 },
+            { id: 14, category: "games", title: "لعبة EA Sports FC 26 لجهاز PS5", image: "png (14).png", desc: defaultDesc, hasVariants: false, price: 41.00 },
+            { id: 15, category: "games", title: "لعبة Horizon Forbidden West لجهاز PS5", image: "png (15).png", desc: defaultDesc, hasVariants: false, price: 25.00 },
+            { id: 16, category: "games", title: "لعبة PUBG Mobile الاضافية المشحونة لجهازك", image: "png (16).png", desc: defaultDesc, hasVariants: false, price: 10.00 },
+            { id: 20, category: "games", title: "لعبة Resident Evil 4 Remake لجهاز PS5", image: "png (20).png", desc: defaultDesc, hasVariants: false, price: 25.00 },
+            { id: 21, category: "games", title: "لعبة Avatar: Frontiers of Pandora لجهاز PS5", image: "png (21).png", desc: defaultDesc, hasVariants: false, price: 43.00 },
+            { id: 22, category: "games", title: "لعبة Gears of War Reloaded لجهاز PS5", image: "png (22).png", desc: defaultDesc, hasVariants: false, price: 42.00 },
+            { id: 23, category: "games", title: "لعبة Uncharted: Legacy of Thieves Collection لجهاز PS5", image: "png (23).png", desc: defaultDesc, hasVariants: false, price: 34.00 },
+            { id: 24, category: "games", title: "لعبة Silent Hill 2 ريميك لجهاز PS5", image: "png (24).png", desc: defaultDesc, hasVariants: false, price: 46.00 },
+            { id: 25, category: "games", title: "لعبة Hitman: World of Assassination لجهاز PS5", image: "png (25).png", desc: defaultDesc, hasVariants: false, price: 35.00 },
+            { id: 26, category: "games", title: "لعبة Crash Team Rumble لجهاز PS5", image: "png (26).png", desc: defaultDesc, hasVariants: false, price: 35.00 },
+            { id: 27, category: "games", title: "لعبة Silent Hill f القادمة لجهاز PS5", image: "png (27).png", desc: defaultDesc, hasVariants: false, price: 65.00 },
+            { id: 31, category: "games", title: "لعبة Pragmata الجديدة لجهاز PS5", image: "png (31).png", desc: defaultDesc, hasVariants: false, price: 60.00 },
+            { id: 32, category: "games", title: "لعبة Resident Evil Requiem لجهاز PS5", image: "png (32).png", desc: defaultDesc, hasVariants: false, price: 59.00 },
+            { id: 33, category: "games", title: "لعبة Crimson Desert المنتظرة لجهاز PS5", image: "png (33).png", desc: defaultDesc, hasVariants: false, price: 59.00 },
+            { id: 34, category: "games", title: "لعبة Reanimal الجديدة المرعبة لجهاز PS5", image: "png (34).png", desc: defaultDesc, hasVariants: false, price: 35.00 },
+            { id: 41, category: "games", title: "لعبة Arc Raiders التنافسية لجهاز PS5", image: "png (41).png", desc: defaultDesc, hasVariants: false, price: 35.00 },
+            { id: 54, category: "games", title: "لعبة Minecraft الكلاسيكية لجهاز PS5", image: "png (54).png", desc: defaultDesc, hasVariants: false, price: 15.00 },
+
+            // ==================== [ قسم الملحقات والإكسسوارات - accessories ] ====================
+            { id: 3, category: "accessories", title: "ماوس ألعاب لاسلكي Haing GM200 RGB", image: "png (3).png", desc: defaultDesc, hasVariants: false, price: 7.99 },
+            { id: 7, category: "accessories", title: "قبضة وحامل ألعاب للهواتف الذكية GameSir X5 Lite", image: "png (7).png", desc: defaultDesc, hasVariants: false, price: 28.00 },
+            { id: 35, category: "accessories", title: "قطع غيار أنالوج Hall Effect ليد تحكم PS4 / PS5 مضادة للدرفت", image: "png (35).png", desc: defaultDesc, hasVariants: false, price: 13.00 },
+            { id: 40, category: "accessories", title: "قاعدة ماوس باد ممتدة ومضيئة RGB مقاس 88x33 سم", image: "png (40).png", desc: defaultDesc, hasVariants: false, price: 15.00 },
+            { id: 42, category: "accessories", title: "صندوق كمبيوتر ألعاب احترافي ومطور (Case RGB)", image: "png (42).png", desc: defaultDesc, hasVariants: false, price: 45.00 },
+            { id: 43, category: "accessories", title: "لوحة مفاتيح ألعاب ميكانيكية Machenike K500 D B61", image: "png (43).png", desc: defaultDesc, hasVariants: false, price: 25.00 },
+            { id: 44, category: "accessories", title: "شاشة ألعاب احترافية MZQ25F250 فائقة السرعة 250 هرتز", image: "png (44).png", desc: defaultDesc, hasVariants: false, price: 174.00 },
+            { id: 45, category: "accessories", title: "طاولة ألعاب احترافية متكاملة Fantech Workstation DW114", image: "png (45).png", desc: defaultDesc, hasVariants: false, price: 249.00 },
+            { id: 46, category: "accessories", title: "سماعة ألعاب لاسلكية فاخرة Sony Pulse Elite لجهاز PS5", image: "png (46).png", desc: defaultDesc, hasVariants: false, price: 119.99 },
+            { id: 47, category: "accessories", title: "يد تحكم احترافية GameSir G7 Pro للكمبيوتر والإكس بوكس", image: "png (47).png", desc: defaultDesc, hasVariants: false, price: 39.00 },
+            { id: 48, category: "accessories", title: "قطع غيار Stick Module المخصصة ليد تحكم DualSense Edge", image: "png (48).png", desc: defaultDesc, hasVariants: false, price: 43.00 },
+            { id: 49, category: "accessories", title: "قبضة ألعاب GameSir X5 Lite المحمولة والمطورة للهواتف", image: "png (49).png", desc: defaultDesc, hasVariants: false, price: 28.00 },
+            { id: 50, category: "accessories", title: "ميكروفون احترافي مكثف للبث والألعاب Fantech MC20", image: "png (50).png", desc: defaultDesc, hasVariants: false, price: 21.99 },
+            { id: 51, category: "accessories", title: "قاعدة ماوس باد احترافية ناعمة Fantech MP453 Agile", image: "png (51).png", desc: defaultDesc, hasVariants: false, price: 8.00 },
+            { id: 53, category: "accessories", title: "سماعات ألعاب محيطية سلكية احترافية مع ميكروفون مدمج", image: "png (53).png", desc: defaultDesc, hasVariants: false, price: 25.00 },
+            { id: 58, category: "accessories", title: "مقود ألعاب لوجيتك Logitech G29 Driving Force مع الدواسات كاملة", image: "png (58).png", desc: defaultDesc, hasVariants: false, price: 240.00 },
+            { id: 59, category: "accessories", title: "يد تحكم بلايستيشن 5 اللاسلكية الرسمية DualSense Controller", image: "png (59).png", desc: defaultDesc, hasVariants: false, price: 55.00 },
+            { id: 60, category: "accessories", title: "لوحة مفاتيح ألعاب ميكانيكية Fantech Chimera K613X RGB", image: "png (60).png", desc: defaultDesc, hasVariants: false, price: 19.99 },
+            { id: 61, category: "accessories", title: "سماعة رأس لاسلكية Fantech WH05A Go Vibe المانعة للضوضاء", image: "png (61).png", desc: defaultDesc, hasVariants: false, price: 20.00 },
+            { id: 62, category: "accessories", title: "يد تحكم لاسلكية احترافية ومطورة Machenike G5 Pro V1000", image: "png (62).png", desc: defaultDesc, hasVariants: false, price: 44.00 }
+        ];
+
+        // لتكملة الأعداد الباقية تلقائياً وبأمان في حال وجود نقص عن 64
+        const totalDesired = 64;
+        const currentLength = productsData.length;
+        const fallbackCategories = ['cards', 'consoles', 'games', 'accessories'];
         
-        const titlesPool = {
-            cards: ["بطاقة ستور بلايستيشن أمريكي", "بطاقة ستور بلايستيشن سعودي", "شدات ببجي موبايل UC فوري", "جواهر فري فاير فوري", "بطاقة ستور إكس بوكس", "بطاقة شحن نينتندو eShop", "بطاقة اشتراك بلايستيشن بلس سنوي", "بطاقة ستور بلايستيشن إماراتي"],
-            consoles: ["جهاز PlayStation 5 Slim النسخة الرقمية", "جهاز PlayStation 5 Pro الجديد", "جهاز Xbox Series S الاحترافي", "جهاز Nintendo Switch OLED المطور", "بي سي جيمنج خارق جاهز للالعاب التنافسية"],
-            games: ["لعبة EA Sports FC 26 لجهاز PS5", "لعبة Silent Hill 2 Remake لجهاز PS5", "لعبة Resident Evil 4 Remake", "لعبة Call of Duty الأحدث كاملة", "لعبة Red Dead Redemption 2 النسخة الفاخرة"],
-            accessories: ["شاشة ألعاب Fantech منحنية فائقة الاستجابة", "جهاز تحكم ذكي للهواتف معالج للانجراف", "ميكروفون محترف للبث وتسجيل الألعاب", "ماوس باد ألعاب كبير مقاوم للسوائل", "قطع غيار أنالوج Hall Effect ليد PS5"]
-        };
-
-        const descPool = "منتج أصلي ومميز، يوفر لك أفضل أداء وتجربة ألعاب ممكنة مع كفالة وضمان حقيقي من متجرنا.";
-
-        // جلب الصور مباشرة وبكل سهولة بالاعتماد على تواجد الملف والصور في نفس المجلد
-        for (let i = 1; i <= 64; i++) {
-            let cat = categoriesList[i % categoriesList.length];
-            let pool = titlesPool[cat];
-            let baseTitle = pool[i % pool.length] + ` (رقم ${i})`;
-            
-            let hasVars = (cat === 'cards' || cat === 'consoles');
-            let itemPrice = 10 + (i * 2.5);
-            
-            let variantsArr = [];
-            if (hasVars) {
-                if (cat === 'cards') {
-                    variantsArr = [
-                        { name: "الفئة الأساسية", price: itemPrice },
-                        { name: "الفئة المتوسطة", price: itemPrice + 10 },
-                        { name: "الفئة الكبرى", price: itemPrice + 25 }
-                    ];
-                } else {
-                    variantsArr = [
-                        { name: "سعة تخزين القياسية", price: itemPrice + 130 },
-                        { name: "سعة تخزين مضاعفة", price: itemPrice + 200 }
-                    ];
-                }
+        // حلقة فحص ذكية تعبئ فقط الأرقام المفقودة من الـ 64 حتى لا يحدث أي نقص بروتوكولي بالصفحة
+        for (let i = 1; i <= totalDesired; i++) {
+            let exists = productsData.some(p => p.image === `png (${i}).png`);
+            if (!exists) {
+                let cat = fallbackCategories[i % fallbackCategories.length];
+                productsData.push({
+                    id: i,
+                    category: cat,
+                    title: `منتج إضافي متاح للمتجر (رقم الصورة ${i})`,
+                    image: `png (${i}).png`,
+                    desc: defaultDesc,
+                    hasVariants: false,
+                    price: 15.00
+                });
             }
-
-            productsData.push({
-                id: i,
-                category: cat,
-                title: baseTitle,
-                image: `png (${i}).png`, // مسار نسبي مباشر وآمن
-                desc: descPool,
-                hasVariants: hasVars,
-                price: hasVars ? null : itemPrice,
-                variants: hasVars ? variantsArr : null
-            });
         }
+
+        // ترتيب المنتجات تصاعدياً حسب الـ ID لضمان انتظام العرض بالموقع
+        productsData.sort((a, b) => a.id - b.id);
 
         let cart = [];
         let currentOpenedProductId = null;
