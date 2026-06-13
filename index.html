@@ -29,25 +29,26 @@
             background-color: rgba(8, 11, 16, 0.9); position: sticky; top: 0; z-index: 100;
             border-bottom: 2px solid rgba(255, 76, 41, 0.2); backdrop-filter: blur(12px);
             padding: 10px 5%; display: flex; justify-content: space-between; align-items: center;
+            gap: 15px;
         }
 
         .logo-container { display: flex; align-items: center; gap: 12px; text-decoration: none; }
         
-        /* 🛠️ تعديل حجم وتنسيق الشعار الصغير في الهيدر ليمتد ويملأ الإطار تماماً */
         .logo-img { 
-            width: 90px;          /* تم تكبير الحجم من 55px ليملأ مساحة الإطار بالكامل */
-            height: 90px;         /* أبعاد متناسقة دائرية */
-            object-fit: cover;    /* جعل الصورة تمتد لتغطي الدائرة بالكامل دون تشويه */
+            width: 90px; 
+            height: 90px; 
+            object-fit: cover; 
             border-radius: 50%; 
-            border: 3px solid var(--primary); /* الإطار المضيء المحيط بالشعار */
-            padding: 0;           /* إلغاء أي مسافات داخلية كانت تصغر اللوجو */
-            box-shadow: 0 0 15px rgba(255, 76, 41, 0.5); /* تأثير الإضاءة حول الإطار */
+            border: 3px solid var(--primary); 
+            padding: 0; 
+            box-shadow: 0 0 15px rgba(255, 76, 41, 0.5); 
             display: block;
+            transition: all 0.3s ease;
         }
-        .logo-text { font-size: 1.5rem; font-weight: 900; color: var(--text-main); }
+        .logo-text { font-size: 1.5rem; font-weight: 900; color: var(--text-main); white-space: nowrap; }
         .logo-text span { color: var(--primary); }
 
-        .search-container { flex: 0 1 400px; }
+        .search-container { flex: 0 1 400px; width: 100%; }
         .search-container input {
             width: 100%; padding: 10px 20px; background-color: var(--bg-card);
             border: 1px solid var(--accent); border-radius: 30px; color: var(--text-main); outline: none;
@@ -60,13 +61,13 @@
             background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
             color: #ffffff !important; text-decoration: none !important; padding: 8px 18px; border-radius: 25px; 
             font-weight: 700; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 6px; 
-            transition: transform 0.2s; cursor: pointer;
+            transition: transform 0.2s; cursor: pointer; white-space: nowrap;
         }
         .instagram-link:hover { transform: scale(1.05); opacity: 0.95; }
 
         .cart-icon-container {
             cursor: pointer; background: var(--bg-card); padding: 8px 20px;
-            border-radius: 25px; border: 1px solid var(--accent); font-weight: 600; transition: 0.2s;
+            border-radius: 25px; border: 1px solid var(--accent); font-weight: 600; transition: 0.2s; white-space: nowrap;
         }
         .cart-icon-container:hover { border-color: var(--primary); }
 
@@ -75,18 +76,21 @@
         .categories-tabs {
             display: flex; justify-content: center; gap: 15px; margin: 30px 5% 15px 5%;
             overflow-x: auto; padding-bottom: 10px;
+            -webkit-overflow-scrolling: touch;
         }
+
+        .categories-tabs::-webkit-scrollbar { height: 5px; }
+        .categories-tabs::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
 
         .tab-btn {
             background-color: var(--bg-card); border: 1px solid var(--accent); color: var(--text-muted);
             padding: 10px 24px; border-radius: 30px; font-weight: 700; cursor: pointer; white-space: nowrap;
             transition: all 0.2s ease;
         }
-
         .tab-btn.active, .tab-btn:hover { background-color: var(--primary); color: white; border-color: var(--primary); }
 
         .main-container { padding: 15px 5% 40px 5%; }
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
 
         .product-card {
             background-color: var(--bg-card); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.03);
@@ -94,47 +98,43 @@
         }
         .product-card:hover { transform: translateY(-5px); border-color: rgba(255, 76, 41, 0.3); }
 
-        .image-wrapper { width: 100%; height: 220px; background-color: #171f2e; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .image-wrapper { width: 100%; height: 200px; background-color: #171f2e; display: flex; align-items: center; justify-content: center; cursor: pointer; }
         .product-card img { width: 100%; height: 100%; object-fit: contain; padding: 12px; }
 
         .product-info { padding: 15px; display: flex; flex-direction: column; flex-grow: 1; }
-        .product-title { font-size: 1rem; font-weight: 700; margin-bottom: 8px; min-height: 45px; cursor: pointer; }
+        .product-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; min-height: 45px; cursor: pointer; line-height: 1.4; }
         .product-title:hover { color: var(--primary); }
 
-        .price-row { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.05); }
-        .price-tag { color: var(--primary); font-weight: 700; }
+        .price-row { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.05); gap: 5px; }
+        .price-tag { color: var(--primary); font-weight: 700; font-size: 0.95rem; white-space: nowrap; }
 
-        .add-to-cart-btn { background-color: var(--primary); color: white; border: none; padding: 6px 14px; border-radius: 6px; font-weight: 700; cursor: pointer; }
+        .add-to-cart-btn { background-color: var(--primary); color: white; border: none; padding: 6px 12px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.85rem; white-space: nowrap; }
 
         /* نافذة تفاصيل المنتجات */
-        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(8px); display: none; justify-content: center; align-items: center; z-index: 1000; padding: 20px; }
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(8px); display: none; justify-content: center; align-items: center; z-index: 1000; padding: 15px; }
         .modal.active { display: flex; }
-        .modal-content { background-color: var(--bg-card); border: 1px solid rgba(255, 76, 41, 0.5); width: 100%; max-width: 550px; border-radius: 14px; padding: 25px; position: relative; text-align: center; }
-        .close-modal { position: absolute; top: 10px; left: 15px; font-size: 1.8rem; color: var(--text-muted); cursor: pointer; }
-        .modal-img { width: 100%; max-height: 220px; object-fit: contain; margin-bottom: 15px; background: #171f2e; padding: 10px; border-radius: 8px; }
+        .modal-content { background-color: var(--bg-card); border: 1px solid rgba(255, 76, 41, 0.5); width: 100%; max-width: 500px; border-radius: 14px; padding: 20px; position: relative; text-align: center; max-height: 90vh; overflow-y: auto; }
+        .close-modal { position: absolute; top: 10px; left: 15px; font-size: 1.8rem; color: var(--text-muted); cursor: pointer; z-index: 10; }
+        .modal-img { width: 100%; max-height: 180px; object-fit: contain; margin-bottom: 15px; background: #171f2e; padding: 10px; border-radius: 8px; }
         .variant-select { width: 100%; padding: 12px; background-color: var(--bg-dark); border: 1px solid var(--primary); border-radius: 8px; color: white; font-weight: 600; margin: 10px 0 15px 0; outline: none; cursor: pointer; }
 
         /* سلة المشتريات الجانبية */
-        .cart-sidebar { position: fixed; top: 0; left: -360px; width: 360px; height: 100%; background-color: var(--bg-card); border-right: 2px solid var(--primary); z-index: 500; transition: left 0.3s; display: flex; flex-direction: column; padding: 20px; }
+        .cart-sidebar { position: fixed; top: 0; left: -100%; width: 100%; max-width: 360px; height: 100%; background-color: var(--bg-card); border-right: 2px solid var(--primary); z-index: 500; transition: left 0.3s; display: flex; flex-direction: column; padding: 20px; }
         .cart-sidebar.open { left: 0; }
         .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--accent); padding-bottom: 15px; }
-        .close-cart-btn { background-color: rgba(239, 68, 68, 0.15); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.3); padding: 5px 12px; font-weight: 700; border-radius: 20px; cursor: pointer; font-size: 0.85rem; transition: 0.2s; }
-        .close-cart-btn:hover { background-color: var(--danger); color: white; }
+        .close-cart-btn { background-color: rgba(239, 68, 68, 0.15); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.3); padding: 5px 12px; font-weight: 700; border-radius: 20px; cursor: pointer; font-size: 0.85rem; }
         
         .cart-items-container { flex-grow: 1; overflow-y: auto; margin: 15px 0; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; background: var(--bg-dark); padding: 10px; border-radius: 6px; margin-bottom: 10px; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; background: var(--bg-dark); padding: 10px; border-radius: 6px; margin-bottom: 10px; font-size: 0.9rem; }
         
-        /* أزرار أسفل السلة */
         .cart-footer-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .checkout-btn { background-color: var(--success); color: white; border: none; padding: 12px; font-weight: 700; border-radius: 6px; cursor: pointer; font-size: 0.95rem; }
-        .cart-close-main-btn { background-color: var(--accent); color: var(--text-main); border: 1px solid rgba(255,255,255,0.1); padding: 12px; font-weight: 700; border-radius: 6px; cursor: pointer; font-size: 0.95rem; text-align: center; }
-        .cart-close-main-btn:hover { background-color: #2d3d5a; }
+        .checkout-btn { background-color: var(--success); color: white; border: none; padding: 12px; font-weight: 700; border-radius: 6px; cursor: pointer; }
+        .cart-close-main-btn { background-color: var(--accent); color: var(--text-main); border: 1px solid rgba(255,255,255,0.1); padding: 12px; font-weight: 700; border-radius: 6px; cursor: pointer; text-align: center; }
 
         /* قسم تواصل معنا */
         .contact-section { background-color: var(--bg-card); border-top: 2px solid var(--accent); padding: 40px 5%; text-align: center; }
         .contact-container { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 20px; }
         
-        /* 🛠️ تنسيق الشعار السفلي الكبير ليملأ الدائرة بشكل مثالي وواضح */
         .contact-logo { 
             width: 220px; 
             height: 220px; 
@@ -143,20 +143,117 @@
             border: 4px solid var(--primary); 
             padding: 0;
             box-shadow: 0 0 25px rgba(255, 76, 41, 0.6); 
+            transition: all 0.3s ease;
         }
         
         .contact-title { font-size: 1.6rem; font-weight: 900; color: var(--text-main); }
         .contact-title span { color: var(--primary); }
-        .contact-buttons { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 10px; }
+        .contact-buttons { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 10px; width: 100%; }
         
-        .contact-card-btn { text-decoration: none; padding: 12px 30px; border-radius: 30px; font-weight: 700; font-size: 1rem; display: inline-flex; align-items: center; gap: 8px; color: white; transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; }
+        .contact-card-btn { text-decoration: none; padding: 12px 25px; border-radius: 30px; font-weight: 700; font-size: 0.95rem; display: inline-flex; align-items: center; justify-content: center; gap: 8px; color: white; transition: transform 0.2s; cursor: pointer; flex: 1 1 200px; max-width: 320px; }
         .contact-card-btn:hover { transform: translateY(-3px); }
-        .btn-insta { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); box-shadow: 0 4px 15px rgba(220, 39, 67, 0.4); }
-        .btn-whatsapp { background-color: var(--whatsapp); box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); }
+        .btn-insta { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+        .btn-whatsapp { background-color: var(--whatsapp); }
 
         footer { background-color: #040609; padding: 25px; text-align: center; border-top: 1px solid var(--accent); color: var(--text-muted); font-size: 0.9rem; }
         footer a { color: var(--primary) !important; text-decoration: none !important; font-weight: bold; margin-right: 5px; }
-        footer a:hover { text-decoration: underline !important; }
+
+        /* ==========================================================================
+           🛠️ MEDIA QUERIES: كود التجاوب الخاص بالتلفونات والشاشات الصغيرة
+           ========================================================================== */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px 20px;
+                text-align: center;
+                gap: 12px;
+            }
+
+            .logo-container {
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            /* تقليص حجم الشعار الصغير تلقائياً على التلفون عشان ما يضرب التصميم ويضل جوة إطاره */
+            .logo-img {
+                width: 70px;
+                height: 70px;
+                border-width: 2.5px;
+            }
+
+            .logo-text {
+                font-size: 1.25rem;
+            }
+
+            .search-container {
+                order: 3; /* جعل خانة البحث تنزل بالأسفل بشكل مريح */
+                flex: 1 1 auto;
+            }
+
+            .header-actions {
+                width: 100%;
+                justify-content: center;
+                gap: 10px;
+                order: 2;
+            }
+
+            .instagram-link, .cart-icon-container {
+                padding: 8px 15px;
+                font-size: 0.85rem;
+                flex: 1;
+                justify-content: center;
+            }
+
+            .categories-tabs {
+                margin: 15px 20px 10px 20px;
+                justify-content: flex-start; /* السماح بالسحب الأفقي على الموبايل */
+            }
+
+            .tab-btn {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* عرض منتجين بجانب بعض بشكل متناسق */
+                gap: 12px;
+            }
+
+            .image-wrapper {
+                height: 150px;
+            }
+
+            .product-title {
+                font-size: 0.85rem;
+                min-height: 38px;
+            }
+
+            .price-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .add-to-cart-btn {
+                width: 100%;
+                text-align: center;
+                padding: 8px;
+            }
+
+            .contact-logo {
+                width: 150px;
+                height: 150px;
+            }
+
+            .contact-title {
+                font-size: 1.3rem;
+            }
+
+            .contact-card-btn {
+                flex: 1 1 100%;
+                max-width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -333,167 +430,4 @@
             { id: 25, category: "games", title: "لعبة Hitman: World of Assassination لجهاز PS5", image: "png (25).png", desc: defaultDesc, hasVariants: false, price: 35.00 },
             { id: 26, category: "games", title: "لعبة Crash Team Rumble لجهاز PS5", image: "png (26).png", desc: defaultDesc, hasVariants: false, price: 35.00 },
             { id: 27, category: "games", title: "لعبة Silent Hill f القادمة لجهاز PS5", image: "png (27).png", desc: defaultDesc, hasVariants: false, price: 65.00 },
-            { id: 31, category: "games", title: "لعبة Pragmata الجديدة لجهاز PS5", image: "png (31).png", desc: defaultDesc, hasVariants: false, price: 60.00 },
-            { id: 32, category: "games", title: "لعبة Resident Evil Requiem لجهاز PS5", image: "png (32).png", desc: defaultDesc, hasVariants: false, price: 59.00 },
-            { id: 33, category: "games", title: "لعبة Crimson Desert المنتظرة لجهاز PS5", image: "png (33).png", desc: defaultDesc, hasVariants: false, price: 59.00 },
-            { id: 34, category: "games", title: "لعبة Reanimal الجديدة المرعبة لجهاز PS5", image: "png (34).png", desc: defaultDesc, hasVariants: false, price: 35.00 },
-            { id: 41, category: "games", title: "لعبة Arc Raiders التنافسية لجهاز PS5", image: "png (41).png", desc: defaultDesc, hasVariants: false, price: 35.00 },
-            { id: 54, category: "games", title: "لعبة Minecraft الكلاسيكية لجهاز PS5", image: "png (54).png", desc: defaultDesc, hasVariants: false, price: 15.00 },
-
-            { id: 3, category: "accessories", title: "ماوس ألعاب لاسلكي Haing GM200 RGB", image: "png (3).png", desc: defaultDesc, hasVariants: false, price: 7.99 },
-            { id: 7, category: "accessories", title: "قبضة وحامل ألعاب للهواتف الذكية GameSir X5 Lite", image: "png (7).png", desc: defaultDesc, hasVariants: false, price: 28.00 },
-            { id: 35, category: "accessories", title: "قطع غيار أنالوج Hall Effect ليد تحكم PS4 / PS5 مضادة للدرفت", image: "png (35).png", desc: defaultDesc, hasVariants: false, price: 13.00 },
-            { id: 40, category: "accessories", title: "قاعدة ماوس باد ممتدة ومضيئة RGB مقاس 88x33 سم", image: "png (40).png", desc: defaultDesc, hasVariants: false, price: 15.00 },
-            { id: 43, category: "accessories", title: "لوحة مفاتيح ألعاب ميكانيكية Machenike K500 D B61", image: "png (43).png", desc: defaultDesc, hasVariants: false, price: 25.00 },
-            { id: 45, category: "accessories", title: "طاولة ألعاب احترافية متكاملة Fantech Workstation DW114", image: "png (45).png", desc: defaultDesc, hasVariants: false, price: 249.00 },
-            { id: 46, category: "accessories", title: "سماعة ألعاب لاسلكية فاخرة Sony Pulse Elite لجهاز PS5", image: "png (46).png", desc: defaultDesc, hasVariants: false, price: 119.99 },
-            { id: 47, category: "accessories", title: "يد تحكم احترافية GameSir G7 Pro للكمبيوتر والإكس بوكس", image: "png (47).png", desc: defaultDesc, hasVariants: false, price: 39.00 },
-            { id: 48, category: "accessories", title: "قطع غيار Stick Module المخصصة ليد تحكم DualSense Edge", image: "png (48).png", desc: defaultDesc, hasVariants: false, price: 43.00 },
-            { id: 49, category: "accessories", title: "قبضة ألعاب GameSir X5 Lite المحمولة والمطورة للهواتف", image: "png (49).png", desc: defaultDesc, hasVariants: false, price: 28.00 },
-            { id: 50, category: "accessories", title: "ميكروفون احترافي مكثف للبث والألعاب Fantech MC20", image: "png (50).png", desc: defaultDesc, hasVariants: false, price: 21.99 },
-            { id: 51, category: "accessories", title: "قاعدة ماوس باد احترافية ناعمة Fantech MP453 Agile", image: "png (51).png", desc: defaultDesc, hasVariants: false, price: 8.00 },
-            { id: 53, category: "accessories", title: "سماعات ألعاب محيطية سلكية احترافية مع ميكروفون مدمج", image: "png (53).png", desc: defaultDesc, hasVariants: false, price: 25.00 },
-            { id: 57, category: "accessories", title: "نظارة الواقع الافتراضي PlayStation VR2 + Horizon Bundle", image: "png (57).png", desc: defaultDesc, hasVariants: false, price: 360.00 },
-            { id: 58, category: "accessories", title: "مقود ألعاب لوجيتك Logitech G29 Driving Force مع الدواسات كاملة", image: "png (58).png", desc: defaultDesc, hasVariants: false, price: 240.00 },
-            { id: 59, category: "accessories", title: "يد تحكم بلايستيشن 5 اللاسلكية الرسمية DualSense Controller", image: "png (59).png", desc: defaultDesc, hasVariants: false, price: 55.00 },
-            { id: 60, category: "accessories", title: "لوحة مفاتيح ألعاب ميكانيكية Fantech Chimera K613X RGB", image: "png (60).png", desc: defaultDesc, hasVariants: false, price: 19.99 },
-            { id: 61, category: "accessories", title: "سماعة رأس لاسلكية Fantech WH05A Go Vibe المانعة للضوضاء", image: "png (61).png", desc: defaultDesc, hasVariants: false, price: 20.00 },
-            { id: 62, category: "accessories", title: "يد تحكم لاسلكية احترافية ومطورة Machenike G5 Pro V1000", image: "png (62).png", desc: defaultDesc, hasVariants: false, price: 44.00 }
-        ];
-
-        const totalDesired = 64;
-        const fallbackCategories = ['cards', 'consoles', 'games', 'accessories'];
-        
-        for (let i = 1; i <= totalDesired; i++) {
-            let exists = productsData.some(p => p.id === i);
-            if (!exists) {
-                let cat = fallbackCategories[i % fallbackCategories.length];
-                productsData.push({
-                    id: i,
-                    category: cat,
-                    title: `منتج متاح في المتجر (رقم الصورة ${i})`,
-                    image: `png (${i}).png`,
-                    desc: defaultDesc,
-                    hasVariants: false,
-                    price: 15.00
-                });
-            }
-        }
-
-        productsData.sort((a, b) => a.id - b.id);
-
-        let cart = [];
-        let currentOpenedProductId = null;
-        let currentCategory = 'all';
-
-        function displayProducts(products) {
-            const grid = document.getElementById('productsGrid');
-            grid.innerHTML = '';
-            
-            if(products.length === 0) {
-                grid.innerHTML = '<p style="grid-column:1/-1; text-align:center; color:var(--text-muted);">لم يتم العثور على أي منتج</p>';
-                return;
-            }
-
-            products.forEach(p => {
-                let initialPrice = p.hasVariants ? p.variants[0].price : p.price;
-                let priceLabel = p.hasVariants ? `يبدأ من ${initialPrice.toFixed(2)} د.أ` : `${initialPrice.toFixed(2)} د.أ`;
-                
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                card.innerHTML = `
-                    <div class="image-wrapper" onclick="openProduct(${p.id})">
-                        <img src="${p.image}" alt="${p.title}" id="img-prod-${p.id}" onerror="this.onerror=null; this.src='https://placehold.co/240x220/121824/ff4c29?text=Image+(${p.id})';">
-                    </div>
-                    <div class="product-info">
-                        <div class="product-title" onclick="openProduct(${p.id})">${p.title}</div>
-                        <div class="price-row">
-                            <div class="price-tag">${priceLabel}</div>
-                            <button class="add-to-cart-btn" onclick="openProduct(${p.id})">عرض المنتج 🛒</button>
-                        </div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        function filterCategory(category, element) {
-            currentCategory = category;
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            element.classList.add('active');
-            
-            const filtered = category === 'all' ? productsData : productsData.filter(p => p.category === category);
-            displayProducts(filtered);
-        }
-
-        function openProduct(id) {
-            currentOpenedProductId = id;
-            const prod = productsData.find(p => p.id === id);
-            
-            document.getElementById('modalImg').src = document.getElementById(`img-prod-${id}`).src;
-            document.getElementById('modalTitle').innerText = prod.title;
-            document.getElementById('modalDesc').innerText = prod.desc;
-
-            const vContainer = document.getElementById('variantContainer');
-            const vSelect = document.getElementById('variantSelect');
-            
-            if (prod.hasVariants) {
-                vContainer.style.display = 'block';
-                vSelect.innerHTML = '';
-                prod.variants.forEach((v, idx) => {
-                    let opt = document.createElement('option');
-                    opt.value = idx; opt.innerText = `${v.name} - (${v.price.toFixed(2)} د.أ)`;
-                    vSelect.appendChild(opt);
-                });
-            } else { vContainer.style.display = 'none'; }
-
-            updateModalPrice();
-            document.getElementById('productModal').classList.add('active');
-        }
-
-        function updateModalPrice() {
-            const prod = productsData.find(p => p.id === currentOpenedProductId);
-            let finalPrice = prod.hasVariants ? prod.variants[document.getElementById('variantSelect').value].price : prod.price;
-            document.getElementById('modalPrice').innerText = finalPrice.toFixed(2) + " د.أ";
-            
-            document.getElementById('modalActionBtn').onclick = function() {
-                addToCart(prod.id, prod.hasVariants ? parseInt(document.getElementById('variantSelect').value) : null);
-                document.getElementById('productModal').classList.remove('active');
-            };
-        }
-
-        function addToCart(id, vIdx) {
-            const prod = productsData.find(p => p.id === id);
-            let title = prod.title + (vIdx !== null ? ` [${prod.variants[vIdx].name}]` : '');
-            let price = vIdx !== null ? prod.variants[vIdx].price : prod.price;
-            let key = vIdx !== null ? `${id}-${vIdx}` : id;
-
-            let exist = cart.find(i => i.key === key);
-            if (exist) { exist.qty++; } else { cart.push({ key, title, price, qty: 1 }); }
-            updateCart();
-        }
-
-        function updateCart() {
-            const container = document.getElementById('cartItems'); container.innerHTML = '';
-            let total = 0, count = 0;
-            cart.forEach(i => {
-                total += i.price * i.qty; count += i.qty;
-                container.innerHTML += `<div class="cart-item"><div><b>${i.title}</b><br><span style="color:var(--primary)">${i.qty} × ${i.price.toFixed(2)} د.أ</span></div><button onclick="cart=cart.filter(x=>x.key!=='${i.key}'); updateCart();" style="background:none; border:none; color:red; cursor:pointer;">حذف</button></div>`;
-            });
-            document.getElementById('cartCount').innerText = count;
-            document.getElementById('cartTotal').innerText = total.toFixed(2) + " د.أ";
-        }
-
-        function toggleCart() { document.getElementById('cartSidebar').classList.toggle('open'); }
-        function closeModal(e) { if(e.target.id === 'productModal') document.getElementById('productModal').classList.remove('active'); }
-
-        document.getElementById('searchInput').addEventListener('input', function(e) {
-            let q = e.target.value.toLowerCase().trim();
-            let base = currentCategory === 'all' ? productsData : productsData.filter(p => p.category === currentCategory);
-            displayProducts(base.filter(p => p.title.toLowerCase().includes(q)));
-        });
-
-        displayProducts(productsData);
-    </script>
-</body>
-</html>
+            { id: 31
