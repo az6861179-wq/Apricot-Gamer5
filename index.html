@@ -18,6 +18,8 @@
             --text-muted: #94a3b8;
             --accent: #1e293b;
             --success: #10b981;
+            --danger: #ef4444;
+            --whatsapp: #25d366;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
@@ -26,22 +28,36 @@
         header {
             background-color: rgba(8, 11, 16, 0.9); position: sticky; top: 0; z-index: 100;
             border-bottom: 2px solid rgba(255, 76, 41, 0.2); backdrop-filter: blur(12px);
-            padding: 15px 5%; display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 5%; display: flex; justify-content: space-between; align-items: center;
         }
 
-        .logo { font-size: 1.8rem; font-weight: 900; color: var(--text-main); text-decoration: none; }
-        .logo span { color: var(--primary); }
+        .logo-container { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-img { width: 55px; height: 55px; object-fit: contain; border-radius: 50%; border: 2px solid var(--primary); background-color: #121824; }
+        .logo-text { font-size: 1.5rem; font-weight: 900; color: var(--text-main); }
+        .logo-text span { color: var(--primary); }
 
         .search-container { flex: 0 1 400px; }
         .search-container input {
             width: 100%; padding: 10px 20px; background-color: var(--bg-card);
-            border: 1px solid var(--accent); border-radius: 30px; color: var(--text-main);
+            border: 1px solid var(--accent); border-radius: 30px; color: var(--text-main); outline: none;
         }
+        .search-container input:focus { border-color: var(--primary); }
+
+        .header-actions { display: flex; align-items: center; gap: 12px; }
+
+        .instagram-link {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: #ffffff !important; text-decoration: none !important; padding: 8px 18px; border-radius: 25px; 
+            font-weight: 700; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 6px; 
+            transition: transform 0.2s; cursor: pointer;
+        }
+        .instagram-link:hover { transform: scale(1.05); opacity: 0.95; }
 
         .cart-icon-container {
             cursor: pointer; background: var(--bg-card); padding: 8px 20px;
-            border-radius: 25px; border: 1px solid var(--accent); font-weight: 600;
+            border-radius: 25px; border: 1px solid var(--accent); font-weight: 600; transition: 0.2s;
         }
+        .cart-icon-container:hover { border-color: var(--primary); }
 
         .cart-count { background-color: var(--primary); color: white; padding: 2px 8px; border-radius: 6px; margin-right: 5px; }
 
@@ -87,21 +103,52 @@
         .modal-img { width: 100%; max-height: 220px; object-fit: contain; margin-bottom: 15px; background: #171f2e; padding: 10px; border-radius: 8px; }
         .variant-select { width: 100%; padding: 12px; background-color: var(--bg-dark); border: 1px solid var(--primary); border-radius: 8px; color: white; font-weight: 600; margin: 10px 0 15px 0; outline: none; cursor: pointer; }
 
+        /* سلة المشتريات الجانبية */
         .cart-sidebar { position: fixed; top: 0; left: -360px; width: 360px; height: 100%; background-color: var(--bg-card); border-right: 2px solid var(--primary); z-index: 500; transition: left 0.3s; display: flex; flex-direction: column; padding: 20px; }
         .cart-sidebar.open { left: 0; }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--accent); padding-bottom: 15px; }
+        .close-cart-btn { background-color: rgba(239, 68, 68, 0.15); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.3); padding: 5px 12px; font-weight: 700; border-radius: 20px; cursor: pointer; font-size: 0.85rem; transition: 0.2s; }
+        .close-cart-btn:hover { background-color: var(--danger); color: white; }
+        
         .cart-items-container { flex-grow: 1; overflow-y: auto; margin: 15px 0; }
         .cart-item { display: flex; justify-content: space-between; align-items: center; background: var(--bg-dark); padding: 10px; border-radius: 6px; margin-bottom: 10px; }
-        .checkout-btn { background-color: var(--success); color: white; border: none; width: 100%; padding: 12px; font-weight: 700; border-radius: 6px; cursor: pointer; margin-top: 10px; }
+        
+        /* أزرار أسفل السلة */
+        .cart-footer-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .checkout-btn { background-color: var(--success); color: white; border: none; padding: 12px; font-weight: 700; border-radius: 6px; cursor: pointer; font-size: 0.95rem; }
+        .cart-close-main-btn { background-color: var(--accent); color: var(--text-main); border: 1px solid rgba(255,255,255,0.1); padding: 12px; font-weight: 700; border-radius: 6px; cursor: pointer; font-size: 0.95rem; text-align: center; }
+        .cart-close-main-btn:hover { background-color: #2d3d5a; }
+
+        /* قسم تواصل معنا الجديد */
+        .contact-section { background-color: var(--bg-card); border-top: 2px solid var(--accent); padding: 40px 5%; text-align: center; }
+        .contact-container { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        .contact-logo { width: 120px; height: 120px; object-fit: contain; border-radius: 50%; border: 3px solid var(--primary); background-color: var(--bg-dark); box-shadow: 0 0 15px rgba(255, 76, 41, 0.3); }
+        .contact-title { font-size: 1.6rem; font-weight: 900; color: var(--text-main); }
+        .contact-title span { color: var(--primary); }
+        .contact-buttons { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 10px; }
+        
+        .contact-card-btn { text-decoration: none; padding: 12px 30px; border-radius: 30px; font-weight: 700; font-size: 1rem; display: inline-flex; align-items: center; gap: 8px; color: white; transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; }
+        .contact-card-btn:hover { transform: translateY(-3px); }
+        .btn-insta { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); box-shadow: 0 4px 15px rgba(220, 39, 67, 0.4); }
+        .btn-whatsapp { background-color: var(--whatsapp); box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); }
 
         footer { background-color: #040609; padding: 25px; text-align: center; border-top: 1px solid var(--accent); color: var(--text-muted); font-size: 0.9rem; }
+        footer a { color: var(--primary) !important; text-decoration: none !important; font-weight: bold; margin-right: 5px; }
+        footer a:hover { text-decoration: underline !important; }
     </style>
 </head>
 <body>
 
     <header>
-        <a href="#" class="logo">APRICOT <span>GAMERS</span></a>
+        <a href="#" class="logo-container">
+            <img src="Gemini_Generated_Image_beq0erbeq0erbeq0-removebg-preview.png" alt="Apricot Gamers Logo" class="logo-img">
+            <div class="logo-text">APRICOT <span>GAMERS</span></div>
+        </a>
         <div class="search-container"><input type="text" id="searchInput" placeholder="ابحث عن منتج أو بطاقة..."></div>
-        <div class="cart-icon-container" onclick="toggleCart()">السلة 🛒 <span class="cart-count" id="cartCount">0</span></div>
+        <div class="header-actions">
+            <a href="https://www.instagram.com/apricot_gamers" target="_blank" rel="noopener noreferrer" class="instagram-link">إنستغرام 📸</a>
+            <div class="cart-icon-container" onclick="toggleCart()">السلة 🛒 <span class="cart-count" id="cartCount">0</span></div>
+        </div>
     </header>
 
     <div class="categories-tabs" id="tabsContainer">
@@ -134,192 +181,113 @@
     </div>
 
     <div class="cart-sidebar" id="cartSidebar">
-        <h3 style="border-bottom:1px solid var(--accent); padding-bottom:10px;">سلة المشتريات</h3>
+        <div class="cart-header">
+            <h3 style="font-weight: 700;">سلة المشتريات</h3>
+            <button class="close-cart-btn" onclick="toggleCart()">✖</button>
+        </div>
         <div class="cart-items-container" id="cartItems"></div>
         <div style="border-top: 1px solid var(--accent); padding-top: 10px;">
             <div style="display:flex; justify-content:space-between; font-weight:700;"><span>المجموع:</span><span id="cartTotal" style="color:var(--primary)">0.00 د.أ</span></div>
-            <button class="checkout-btn" onclick="alert('تواصل معنا لإتمام الدفع السريع عبر حساب CliQ!')">تأكيد الطلب</button>
+            
+            <div class="cart-footer-actions">
+                <button class="checkout-btn" onclick="alert('تواصل معنا لإتمام الدفع السريع عبر حساب CliQ!')">تأكيد الطلب</button>
+                <button class="cart-close-main-btn" onclick="toggleCart()">إغلاق ↩</button>
+            </div>
         </div>
     </div>
 
-    <footer><p>&copy; 2026 متجر Apricot Gamers. جميع الحقوق محفوظة.</p></footer>
+    <section class="contact-section">
+        <div class="contact-container">
+            <img src="Gemini_Generated_Image_beq0erbeq0erbeq0-removebg-preview.png" alt="Apricot Gamers" class="contact-logo">
+            <div class="contact-title">تواصل مع <span>Apricot Gamers</span></div>
+            <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 500px; line-height: 1.6;">لديك أي استفسار بخصوص البطاقات الرقمية، الأجهزة، أو صيانة اليد والأجهزة؟ تواصل معنا مباشرة عبر منصاتنا الرسمية وسنخدمك فوراً!</p>
+            <div class="contact-buttons">
+                <a href="https://www.instagram.com/apricot_gamers" target="_blank" rel="noopener noreferrer" class="contact-card-btn btn-insta">حساب الإنستغرام 📸</a>
+                <a href="https://wa.me/962796507200" target="_blank" rel="noopener noreferrer" class="contact-card-btn btn-whatsapp">الدعم الفني عبر الواتساب 💬</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 متجر Apricot Gamers. جميع الحقوق محفوظة. | تابعنا على <a href="https://www.instagram.com/apricot_gamers" target="_blank" rel="noopener noreferrer">إنستغرام 📸</a></p>
+    </footer>
 
     <script>
         const defaultDesc = "منتج أصلي ومضمون 100%، استلام فوري وكفالة حقيقية من متجرنا لتستمتع بأفضل تجربة ألعاب.";
 
-        // مصفوفة الـ 64 منتجاً الاحترافية - مضافاً إليها نظام الخيارات للبطاقات والاشتراكات
         const productsData = [
-            // ==================== [ قسم البطاقات الرقمية والستور - مع اختيار القيم ] ====================
+            // ==================== [ قسم البطاقات والستور والبلس - cards ] ====================
             { 
                 id: 1, category: "cards", title: "بطاقة هدايا متجر EA Gift Card", image: "png (1).png", desc: defaultDesc, 
-                hasVariants: true, 
-                variants: [
-                    { name: "شحن بقيمة 15$", price: 12.50 },
-                    { name: "شحن بقيمة 25$", price: 21.00 },
-                    { name: "شحن بقيمة 50$", price: 41.50 },
-                    { name: "شحن بقيمة 100$", price: 82.00 }
-                ]
+                hasVariants: true, variants: [{ name: "شحن بقيمة 15$", price: 12.50 }, { name: "شحن بقيمة 25$", price: 21.00 }, { name: "شحن بقيمة 50$", price: 41.50 }, { name: "شحن بقيمة 100$", price: 82.00 }]
             },
             { 
                 id: 2, category: "cards", title: "بطاقات شحن روبلوكس Roblox Gift Card", image: "png (2).png", desc: defaultDesc, 
-                hasVariants: true, 
-                variants: [
-                    { name: "فئة 10$ (800 روبكس)", price: 8.50 },
-                    { name: "فئة 25$ (2000 روبكس)", price: 21.00 },
-                    { name: "فئة 50$ (4500 روبكس)", price: 41.00 },
-                    { name: "فئة 100$ (10000 روبكس)", price: 81.00 }
-                ]
+                hasVariants: true, variants: [{ name: "فئة 10$ (800 روبكس)", price: 8.50 }, { name: "فئة 25$ (2000 روبكس)", price: 21.00 }, { name: "فئة 50$ (4500 روبكس)", price: 41.00 }, { name: "فئة 100$ (10000 روبكس)", price: 81.00 }]
             },
             { 
-                id: 8, category: "cards", title: "بطاقة شحن بلايستيشن ستور اللبناني", image: "png (8).png", desc: defaultDesc, 
-                hasVariants: true, 
-                variants: [
-                    { name: "شحن بقيمة 10$", price: 7.95 },
-                    { name: "شحن بقيمة 20$", price: 15.90 },
-                    { name: "شحن بقيمة 50$", price: 39.50 },
-                    { name: "شحن بقيمة 100$", price: 78.50 }
-                ]
+                id: 8, category: "cards", title: "بطاقة شحن بلايستيشن ستور اللبناني 🇱🇧", image: "png (8).png", desc: defaultDesc, 
+                hasVariants: true, variants: [{ name: "شحن 10$", price: 7.95 }, { name: "شحن 20$", price: 15.90 }, { name: "شحن 50$", price: 39.50 }, { name: "شحن 100$", price: 78.50 }]
             },
             { 
-                id: 9, category: "cards", title: "بطاقة شحن بلايستيشن ستور القطري", image: "png (9).png", desc: defaultDesc, 
-                hasVariants: true, 
-                variants: [
-                    { name: "شحن بقيمة 10$", price: 7.95 },
-                    { name: "شحن بقيمة 20$", price: 15.90 },
-                    { name: "شحن بقيمة 50$", price: 39.50 },
-                    { name: "شحن بقيمة 100$", price: 78.50 }
-                ]
+                id: 9, category: "cards", title: "بطاقة شحن بلايستيشن ستور القطري 🇶🇦", image: "png (9).png", desc: defaultDesc, 
+                hasVariants: true, variants: [{ name: "شحن 10$", price: 7.95 }, { name: "شحن 20$", price: 15.90 }, { name: "شحن 50$", price: 39.50 }, { name: "شحن 100$", price: 78.50 }]
             },
             { 
-                id: 10, category: "cards", title: "بطاقة شحن بلايستيشن ستور الكويتي", image: "png (10).png", desc: defaultDesc, 
-                hasVariants: true, 
-                variants: [
-                    { name: "شحن بقيمة 10$", price: 7.95 },
-                    { name: "شحن بقيمة 20$", price: 15.90 },
-                    { name: "شحن بقيمة 50$", price: 39.50 },
-                    { name: "شحن بقيمة 100$", price: 78.50 }
-                ]
+                id: 10, category: "cards", title: "بطاقة شحن بلايستيشن ستور الكويتي 🇰🇼", image: "png (10).png", desc: defaultDesc, 
+                hasVariants: true, variants: [{ name: "شحن 10$", price: 7.95 }, { name: "شحن 20$", price: 15.90 }, { name: "شحن 50$", price: 39.50 }, { name: "شحن 100$", price: 78.50 }]
             },
             { 
-                id: 11, category: "cards", title: "بطاقة شحن بلايستيشن ستور السعودي", image: "png (11).png", desc: defaultDesc, 
-                hasVariants: true, 
-                variants: [
-                    { name: "شحن بقيمة 10$", price: 8.25 },
-                    { name: "شحن بقيمة 20$", price: 16.50 },
-                    { name: "شحن بقيمة 50$", price: 41.00 },
-                    { name: "شحن بقيمة 100$", price: 81.50 }
-                ]
+                id: 11, category: "cards", title: "بطاقة شحن بلايستيشن ستور السعودي 🇸🇦", image: "png (11).png", desc: defaultDesc, 
+                hasVariants: true, variants: [{ name: "شحن 10$", price: 8.25 }, { name: "شحن 20$", price: 16.50 }, { name: "شحن 50$", price: 41.00 }, { name: "شحن 100$", price: 81.50 }]
             },
             { 
-                id: 17, category: "cards", title: "بطاقات شحن ستيم الأمريكي Steam", image: "png (17).png", desc: defaultDesc, 
-                hasVariants: true, 
-                variants: [
-                    { name: "شحن بقيمة 5$", price: 5.00 },
-                    { name: "شحن بقيمة 10$", price: 9.80 },
-                    { name: "شحن بقيمة 25$", price: 24.50 },
-                    { name: "شحن بقيمة 50$", price: 48.50 },
-                    { name: "شحن بقيمة 100$", price: 96.00 }
-                ]
+                id: 17, category: "cards", title: "بطاقات شحن ستيم الأمريكي Steam 🇺🇸", image: "png (17).png", desc: defaultDesc, 
+                hasVariants: true, variants: [{ name: "شحن 5$", price: 5.00 }, { name: "شحن 10$", price: 9.80 }, { name: "شحن 25$", price: 24.50 }, { name: "شحن 50$", price: 48.50 }, { name: "شحن 100$", price: 96.00 }]
             },
             { 
-                id: 18, category: "cards", title: "شدات ببجي موبايل (PUBG UC) ستيم التركي", image: "png (18).png", desc: defaultDesc, 
-                hasVariants: true, 
-                variants: [
-                    { name: "شحن 60 شدة فوري", price: 1.10 },
-                    { name: "شحن 325 شدة فوري", price: 4.25 },
-                    { name: "شحن 660 شدة فوري", price: 8.40 },
-                    { name: "شحن 1800 شدة فوري", price: 21.00 },
-                    { name: "شحن 3850 شدة فوري", price: 41.50 }
-                ]
+                id: 18, category: "cards", title: "شدات ببجي موبايل PUBG UC (ستيم التركي 🇹🇷)", image: "png (18).png", desc: defaultDesc, 
+                hasVariants: true, variants: [{ name: "60 شدة فوري", price: 1.10 }, { name: "325 شدة فوري", price: 4.25 }, { name: "660 شدة فوري", price: 8.40 }, { name: "1800 شدة فوري", price: 21.00 }, { name: "3850 شدة فوري", price: 41.50 }]
             },
             { 
-                id: 19, category: "cards", title: "شدات ببجي موبايل (PUBG UC) ستيم السعودي", image: "png (19).png", desc: defaultDesc, 
-                hasVariants: true, 
-                variants: [
-                    { name: "شحن 60 شدة فوري", price: 1.20 },
-                    { name: "شحن 325 شدة فوري", price: 4.50 },
-                    { name: "شحن 660 شدة فوري", price: 8.80 },
-                    { name: "شحن 1800 شدة فوري", price: 22.00 },
-                    { name: "شحن 3850 شدة فوري", price: 43.00 }
-                ]
+                id: 19, category: "cards", title: "شدات ببجي موبايل PUBG UC (ستيم السعودي 🇸🇦)", image: "png (19).png", desc: defaultDesc, 
+                hasVariants: true, variants: [{ name: "60 شدة فوري", price: 1.20 }, { name: "325 شدة فوري", price: 4.50 }, { name: "660 شدة فوري", price: 8.80 }, { name: "1800 شدة فوري", price: 22.00 }, { name: "3850 شدة فوري", price: 43.00 }]
             },
             { 
-                id: 28, category: "cards", title: "اشتراك بلايستيشن بلس 12 شهر - الفاخر Premium", image: "png (28).png", desc: defaultDesc, 
-                hasVariants: true, 
-                variants: [
-                    { name: "الاشتراك القياسي لبند الحساب اللبناني", price: 39.00 },
-                    { name: "الاشتراك القياسي لبند الحساب الإماراتي", price: 44.00 },
-                    { name: "الاشتراك القياسي لبند الحساب السعودي", price: 49.00 }
-                ]
+                id: 28, category: "cards", title: "اشتراك بلايستيشن بلس 12 شهر - فاخر Premium", image: "png (28).png", desc: defaultDesc, 
+                hasVariants: true, variants: [{ name: "حساب لبناني", price: 39.00 }, { name: "حساب إماراتي", price: 44.00 }, { name: "حساب سعودي", price: 49.00 }]
             },
             { 
-                id: 29, category: "cards", title: "اشتراك بلايستيشن بلس 12 شهر - الإضافي Extra", image: "png (29).png", desc: defaultDesc, 
-                hasVariants: true, 
-                variants: [
-                    { name: "الاشتراك القياسي لبند الحساب اللبناني", price: 35.00 },
-                    { name: "الاشتراك القياسي لبند الحساب الإماراتي", price: 39.00 },
-                    { name: "الاشتراك القياسي لبند الحساب السعودي", price: 42.50 }
-                ]
+                id: 29, category: "cards", title: "اشتراك بلايستيشن بلس 12 شهر - إضافي Extra", image: "png (29).png", desc: defaultDesc, 
+                hasVariants: true, variants: [{ name: "حساب لبناني", price: 35.00 }, { name: "حساب إماراتي", price: 39.00 }, { name: "حساب سعودي", price: 42.50 }]
             },
             { 
-                id: 30, category: "cards", title: "اشتراك بلايستيشن بلس 12 شهر - الأساسي Essential", image: "png (30).png", desc: defaultDesc, 
-                hasVariants: true, 
-                variants: [
-                    { name: "الاشتراك القياسي لبند الحساب اللبناني", price: 30.00 },
-                    { name: "الاشتراك القياسي لبند الحساب الإماراتي", price: 34.00 },
-                    { name: "الاشتراك القياسي لبند الحساب السعودي", price: 36.00 }
-                ]
+                id: 30, category: "cards", title: "اشتراك بلايستيشن بلس 12 شهر - أساسي Essential", image: "png (30).png", desc: defaultDesc, 
+                hasVariants: true, variants: [{ name: "حساب لبناني", price: 30.00 }, { name: "حساب إماراتي", price: 34.00 }, { name: "حساب سعودي", price: 36.00 }]
             },
             { 
-                id: 37, category: "cards", title: "اشتراك بلايستيشن بلس 3 أشهر - الفاخر Premium", image: "png (37).png", desc: defaultDesc, 
-                hasVariants: true, 
-                variants: [
-                    { name: "الاشتراك القياسي لبند الحساب اللبناني", price: 20.00 },
-                    { name: "الاشتراك القياسي لبند الحساب السعودي", price: 24.00 }
-                ]
+                id: 37, category: "cards", title: "اشتراك بلايستيشن بلس 3 أشهر - فاخر Premium", image: "png (37).png", desc: defaultDesc, 
+                hasVariants: true, variants: [{ name: "حساب لبناني", price: 20.00 }, { name: "حساب سعودي", price: 24.00 }]
             },
             { 
-                id: 38, category: "cards", title: "اشتراك بلايستيشن بلس 3 أشهر - الإضافي Extra", image: "png (38).png", desc: defaultDesc, 
-                hasVariants: true, 
-                variants: [
-                    { name: "الاشتراك القياسي لبند الحساب اللبناني", price: 18.00 },
-                    { name: "الاشتراك القياسي لبند الحساب السعودي", price: 21.00 }
-                ]
+                id: 38, category: "cards", title: "اشتراك بلايستيشن بلس 3 أشهر - إضافي Extra", image: "png (38).png", desc: defaultDesc, 
+                hasVariants: true, variants: [{ name: "حساب لبناني", price: 18.00 }, { name: "حساب سعودي", price: 21.00 }]
             },
             { 
-                id: 39, category: "cards", title: "اشتراك بلايستيشن بلس 3 أشهر - الأساسي Essential", image: "png (39).png", desc: defaultDesc, 
-                hasVariants: true, 
-                variants: [
-                    { name: "الاشتراك القياسي لبند الحساب اللبناني", price: 13.00 },
-                    { name: "الاشتراك القياسي لبند الحساب السعودي", price: 15.50 }
-                ]
+                id: 39, category: "cards", title: "اشتراك بلايستيشن بلس 3 أشهر - أساسي Essential", image: "png (39).png", desc: defaultDesc, 
+                hasVariants: true, variants: [{ name: "حساب لبناني", price: 13.00 }, { name: "حساب سعودي", price: 15.50 }]
             },
             { 
-                id: 55, category: "cards", title: "بطاقات شحن بلايستيشن ستور البريطاني", image: "png (55).png", desc: defaultDesc, 
-                hasVariants: true, 
-                variants: [
-                    { name: "شحن بقيمة 5£", price: 4.90 },
-                    { name: "شحن بقيمة 10£", price: 9.80 },
-                    { name: "شحن بقيمة 20£", price: 19.50 },
-                    { name: "شحن بقيمة 50£", price: 48.00 }
-                ]
+                id: 55, category: "cards", title: "بطاقات شحن بلايستيشن ستور البريطاني 🇬🇧", image: "png (55).png", desc: defaultDesc, 
+                hasVariants: true, variants: [{ name: "شحن 5£", price: 4.90 }, { name: "شحن 10£", price: 9.80 }, { name: "شحن 20£", price: 19.50 }]
             },
             { 
                 id: 56, category: "cards", title: "بطاقات شحن بلايستيشن ستور اللبناني الإضافية", image: "png (56).png", desc: defaultDesc, 
-                hasVariants: true, 
-                variants: [
-                    { name: "شحن بقيمة 10$", price: 7.95 },
-                    { name: "شحن بقيمة 20$", price: 15.90 }
-                ]
+                hasVariants: true, variants: [{ name: "شحن 10$", price: 7.95 }, { name: "شحن 20$", price: 15.90 }]
             },
             { 
                 id: 64, category: "cards", title: "بطاقات شحن ستيم الأمريكي الفئة الكبرى Steam", image: "png (64).png", desc: defaultDesc, 
-                hasVariants: true, 
-                variants: [
-                    { name: "شحن بقيمة 25$", price: 25.00 },
-                    { name: "شحن بقيمة 50$", price: 49.50 },
-                    { name: "شحن بقيمة 100$", price: 98.00 }
-                ]
+                hasVariants: true, variants: [{ name: "شحن 25$", price: 25.00 }, { name: "شحن 50$", price: 49.50 }, { name: "شحن 100$", price: 98.00 }]
             },
 
             // ==================== [ قسم الأجهزة والمنصات - consoles ] ====================
@@ -327,8 +295,9 @@
             { id: 5, category: "consoles", title: "جهاز Xbox Series X الخارق من مايكروسوفت", image: "png (5).png", desc: defaultDesc, hasVariants: false, price: 425.00 },
             { id: 6, category: "consoles", title: "جهاز Xbox Series S الاقتصادي المطور", image: "png (6).png", desc: defaultDesc, hasVariants: false, price: 335.00 },
             { id: 36, category: "consoles", title: "جهاز PlayStation 5 Slim النسخة الرقمية", image: "png (36).png", desc: defaultDesc, hasVariants: false, price: 435.00 },
+            { id: 42, category: "consoles", title: "صندوق كمبيوتر ألعاب احترافي ومطور (Case RGB)", image: "png (42).png", desc: defaultDesc, hasVariants: false, price: 45.00 },
+            { id: 44, category: "consoles", title: "شاشة ألعاب احترافية MZQ25F250 فائقة السرعة 250 هرتز", image: "png (44).png", desc: defaultDesc, hasVariants: false, price: 174.00 },
             { id: 52, category: "consoles", title: "شاشة ألعاب Fantech Chimera GM242AC منحنية", image: "png (52).png", desc: defaultDesc, hasVariants: false, price: 105.00 },
-            { id: 57, category: "consoles", title: "نظارة الواقع الافتراضي PlayStation VR2 + Horizon Bundle", image: "png (57).png", desc: defaultDesc, hasVariants: false, price: 360.00 },
             { id: 63, category: "consoles", title: "كمبيوتر محمول للألعاب HP Victus 15 Gaming Laptop", image: "png (63).png", desc: defaultDesc, hasVariants: false, price: 585.00 },
 
             // ==================== [ قسم الألعاب والأقراص - games ] ====================
@@ -357,9 +326,7 @@
             { id: 7, category: "accessories", title: "قبضة وحامل ألعاب للهواتف الذكية GameSir X5 Lite", image: "png (7).png", desc: defaultDesc, hasVariants: false, price: 28.00 },
             { id: 35, category: "accessories", title: "قطع غيار أنالوج Hall Effect ليد تحكم PS4 / PS5 مضادة للدرفت", image: "png (35).png", desc: defaultDesc, hasVariants: false, price: 13.00 },
             { id: 40, category: "accessories", title: "قاعدة ماوس باد ممتدة ومضيئة RGB مقاس 88x33 سم", image: "png (40).png", desc: defaultDesc, hasVariants: false, price: 15.00 },
-            { id: 42, category: "accessories", title: "صندوق كمبيوتر ألعاب احترافي ومطور (Case RGB)", image: "png (42).png", desc: defaultDesc, hasVariants: false, price: 45.00 },
             { id: 43, category: "accessories", title: "لوحة مفاتيح ألعاب ميكانيكية Machenike K500 D B61", image: "png (43).png", desc: defaultDesc, hasVariants: false, price: 25.00 },
-            { id: 44, category: "accessories", title: "شاشة ألعاب احترافية MZQ25F250 فائقة السرعة 250 هرتز", image: "png (44).png", desc: defaultDesc, hasVariants: false, price: 174.00 },
             { id: 45, category: "accessories", title: "طاولة ألعاب احترافية متكاملة Fantech Workstation DW114", image: "png (45).png", desc: defaultDesc, hasVariants: false, price: 249.00 },
             { id: 46, category: "accessories", title: "سماعة ألعاب لاسلكية فاخرة Sony Pulse Elite لجهاز PS5", image: "png (46).png", desc: defaultDesc, hasVariants: false, price: 119.99 },
             { id: 47, category: "accessories", title: "يد تحكم احترافية GameSir G7 Pro للكمبيوتر والإكس بوكس", image: "png (47).png", desc: defaultDesc, hasVariants: false, price: 39.00 },
@@ -368,6 +335,7 @@
             { id: 50, category: "accessories", title: "ميكروفون احترافي مكثف للبث والألعاب Fantech MC20", image: "png (50).png", desc: defaultDesc, hasVariants: false, price: 21.99 },
             { id: 51, category: "accessories", title: "قاعدة ماوس باد احترافية ناعمة Fantech MP453 Agile", image: "png (51).png", desc: defaultDesc, hasVariants: false, price: 8.00 },
             { id: 53, category: "accessories", title: "سماعات ألعاب محيطية سلكية احترافية مع ميكروفون مدمج", image: "png (53).png", desc: defaultDesc, hasVariants: false, price: 25.00 },
+            { id: 57, category: "accessories", title: "نظارة الواقع الافتراضي PlayStation VR2 + Horizon Bundle", image: "png (57).png", desc: defaultDesc, hasVariants: false, price: 360.00 },
             { id: 58, category: "accessories", title: "مقود ألعاب لوجيتك Logitech G29 Driving Force مع الدواسات كاملة", image: "png (58).png", desc: defaultDesc, hasVariants: false, price: 240.00 },
             { id: 59, category: "accessories", title: "يد تحكم بلايستيشن 5 اللاسلكية الرسمية DualSense Controller", image: "png (59).png", desc: defaultDesc, hasVariants: false, price: 55.00 },
             { id: 60, category: "accessories", title: "لوحة مفاتيح ألعاب ميكانيكية Fantech Chimera K613X RGB", image: "png (60).png", desc: defaultDesc, hasVariants: false, price: 19.99 },
@@ -375,7 +343,6 @@
             { id: 62, category: "accessories", title: "يد تحكم لاسلكية احترافية ومطورة Machenike G5 Pro V1000", image: "png (62).png", desc: defaultDesc, hasVariants: false, price: 44.00 }
         ];
 
-        // لتأمين النقص والوصول للعدد 64 كاملاً دون أي خطأ بروتوكولي
         const totalDesired = 64;
         const fallbackCategories = ['cards', 'consoles', 'games', 'accessories'];
         
@@ -395,7 +362,6 @@
             }
         }
 
-        // ترتيب الأرقام تصاعدياً لانتظام المتجر
         productsData.sort((a, b) => a.id - b.id);
 
         let cart = [];
