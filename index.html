@@ -123,7 +123,7 @@
             <h2 class="modal-title" id="modalTitle" style="font-size:1.3rem; margin-bottom:10px;"></h2>
             
             <div id="variantContainer" style="text-align:right;">
-                <label style="font-weight:600; font-size:0.9rem;">حدد الفئة أو القيمة المطلوبة لجهازك:</label>
+                <label style="font-weight:600; font-size:0.9rem;">اختر القيمة أو الفئة المطلوبة:</label>
                 <select id="variantSelect" class="variant-select" onchange="updateModalPrice()"></select>
             </div>
             
@@ -145,30 +145,182 @@
     <footer><p>&copy; 2026 متجر Apricot Gamers. جميع الحقوق محفوظة.</p></footer>
 
     <script>
-        // الوصف الثابت لجميع المنتجات لتوفير المساحة
-        const defaultDesc = "منتج أصلي ومميز، يوفر لك أفضل أداء وتجربة ألعاب ممكنة مع كفالة وضمان حقيقي من متجرنا.";
+        const defaultDesc = "منتج أصلي ومضمون 100%، استلام فوري وكفالة حقيقية من متجرنا لتستمتع بأفضل تجربة ألعاب.";
 
-        // مصفوفة الـ 64 منتجاً مرتبة ومربوطة بأرقام صور المجلد الحقيقية لمنع اللخبطة
+        // مصفوفة الـ 64 منتجاً الاحترافية - مضافاً إليها نظام الخيارات للبطاقات والاشتراكات
         const productsData = [
-            // ==================== [ قسم البطاقات الرقمية والستور - cards ] ====================
-            { id: 1, category: "cards", title: "بطاقة هدايا متجر EA Gift Card بقيمة 15$", image: "png (1).png", desc: defaultDesc, hasVariants: false, price: 12.50 },
-            { id: 2, category: "cards", title: "بطاقات شحن روبلوكس Roblox Gift Card بقيمة 10$", image: "png (2).png", desc: defaultDesc, hasVariants: false, price: 8.50 },
-            { id: 8, category: "cards", title: "بطاقة شحن بلايستيشن ستور اللبناني بقيمة 10$", image: "png (8).png", desc: defaultDesc, hasVariants: false, price: 7.95 },
-            { id: 9, category: "cards", title: "بطاقة شحن بلايستيشن ستور القطري بقيمة 10$", image: "png (9).png", desc: defaultDesc, hasVariants: false, price: 7.95 },
-            { id: 10, category: "cards", title: "بطاقة شحن بلايستيشن ستور الكويتي بقيمة 10$", image: "png (10).png", desc: defaultDesc, hasVariants: false, price: 7.95 },
-            { id: 11, category: "cards", title: "بطاقة شحن بلايستيشن ستور السعودي بقيمة 10$", image: "png (11).png", desc: defaultDesc, hasVariants: false, price: 7.95 },
-            { id: 17, category: "cards", title: "بطاقات شحن ستيم الأمريكي بقيمة 5$", image: "png (17).png", desc: defaultDesc, hasVariants: false, price: 5.00 },
-            { id: 18, category: "cards", title: "شدات ببجي موبايل (PUBG UC) شحن فوري ببطاقة ستيم التركي", image: "png (18).png", desc: defaultDesc, hasVariants: false, price: 1.10 },
-            { id: 19, category: "cards", title: "شدات ببجي موبايل (PUBG UC) شحن فوري ببطاقة ستيم السعودي", image: "png (19).png", desc: defaultDesc, hasVariants: false, price: 3.50 },
-            { id: 28, category: "cards", title: "اشتراك بلايستيشن بلس 12 شهر - الفاخر Premium", image: "png (28).png", desc: defaultDesc, hasVariants: false, price: 39.00 },
-            { id: 29, category: "cards", title: "اشتراك بلايستيشن بلس 12 شهر - الإضافي Extra", image: "png (29).png", desc: defaultDesc, hasVariants: false, price: 35.00 },
-            { id: 30, category: "cards", title: "اشتراك بلايستيشن بلس 12 شهر - الأساسي Essential", image: "png (30).png", desc: defaultDesc, hasVariants: false, price: 30.00 },
-            { id: 37, category: "cards", title: "اشتراك بلايستيشن بلس 3 أشهر - الفاخر Premium", image: "png (37).png", desc: defaultDesc, hasVariants: false, price: 20.00 },
-            { id: 38, category: "cards", title: "اشتراك بلايستيشن بلس 3 أشهر - الإضافي Extra", image: "png (38).png", desc: defaultDesc, hasVariants: false, price: 18.00 },
-            { id: 39, category: "cards", title: "اشتراك بلايستيشن بلس 3 أشهر - الأساسي Essential", image: "png (39).png", desc: defaultDesc, hasVariants: false, price: 13.00 },
-            { id: 55, category: "cards", title: "بطاقات شحن بلايستيشن ستور البريطاني بقيمة 5£", image: "png (55).png", desc: defaultDesc, hasVariants: false, price: 4.90 },
-            { id: 56, category: "cards", title: "بطاقات شحن بلايستيشن ستور اللبناني بقيمة 10$", image: "png (56).png", desc: defaultDesc, hasVariants: false, price: 7.95 },
-            { id: 64, category: "cards", title: "بطاقات شحن ستيم الأمريكي بقيمة 25$", image: "png (64).png", desc: defaultDesc, hasVariants: false, price: 25.00 },
+            // ==================== [ قسم البطاقات الرقمية والستور - مع اختيار القيم ] ====================
+            { 
+                id: 1, category: "cards", title: "بطاقة هدايا متجر EA Gift Card", image: "png (1).png", desc: defaultDesc, 
+                hasVariants: true, 
+                variants: [
+                    { name: "شحن بقيمة 15$", price: 12.50 },
+                    { name: "شحن بقيمة 25$", price: 21.00 },
+                    { name: "شحن بقيمة 50$", price: 41.50 },
+                    { name: "شحن بقيمة 100$", price: 82.00 }
+                ]
+            },
+            { 
+                id: 2, category: "cards", title: "بطاقات شحن روبلوكس Roblox Gift Card", image: "png (2).png", desc: defaultDesc, 
+                hasVariants: true, 
+                variants: [
+                    { name: "فئة 10$ (800 روبكس)", price: 8.50 },
+                    { name: "فئة 25$ (2000 روبكس)", price: 21.00 },
+                    { name: "فئة 50$ (4500 روبكس)", price: 41.00 },
+                    { name: "فئة 100$ (10000 روبكس)", price: 81.00 }
+                ]
+            },
+            { 
+                id: 8, category: "cards", title: "بطاقة شحن بلايستيشن ستور اللبناني", image: "png (8).png", desc: defaultDesc, 
+                hasVariants: true, 
+                variants: [
+                    { name: "شحن بقيمة 10$", price: 7.95 },
+                    { name: "شحن بقيمة 20$", price: 15.90 },
+                    { name: "شحن بقيمة 50$", price: 39.50 },
+                    { name: "شحن بقيمة 100$", price: 78.50 }
+                ]
+            },
+            { 
+                id: 9, category: "cards", title: "بطاقة شحن بلايستيشن ستور القطري", image: "png (9).png", desc: defaultDesc, 
+                hasVariants: true, 
+                variants: [
+                    { name: "شحن بقيمة 10$", price: 7.95 },
+                    { name: "شحن بقيمة 20$", price: 15.90 },
+                    { name: "شحن بقيمة 50$", price: 39.50 },
+                    { name: "شحن بقيمة 100$", price: 78.50 }
+                ]
+            },
+            { 
+                id: 10, category: "cards", title: "بطاقة شحن بلايستيشن ستور الكويتي", image: "png (10).png", desc: defaultDesc, 
+                hasVariants: true, 
+                variants: [
+                    { name: "شحن بقيمة 10$", price: 7.95 },
+                    { name: "شحن بقيمة 20$", price: 15.90 },
+                    { name: "شحن بقيمة 50$", price: 39.50 },
+                    { name: "شحن بقيمة 100$", price: 78.50 }
+                ]
+            },
+            { 
+                id: 11, category: "cards", title: "بطاقة شحن بلايستيشن ستور السعودي", image: "png (11).png", desc: defaultDesc, 
+                hasVariants: true, 
+                variants: [
+                    { name: "شحن بقيمة 10$", price: 8.25 },
+                    { name: "شحن بقيمة 20$", price: 16.50 },
+                    { name: "شحن بقيمة 50$", price: 41.00 },
+                    { name: "شحن بقيمة 100$", price: 81.50 }
+                ]
+            },
+            { 
+                id: 17, category: "cards", title: "بطاقات شحن ستيم الأمريكي Steam", image: "png (17).png", desc: defaultDesc, 
+                hasVariants: true, 
+                variants: [
+                    { name: "شحن بقيمة 5$", price: 5.00 },
+                    { name: "شحن بقيمة 10$", price: 9.80 },
+                    { name: "شحن بقيمة 25$", price: 24.50 },
+                    { name: "شحن بقيمة 50$", price: 48.50 },
+                    { name: "شحن بقيمة 100$", price: 96.00 }
+                ]
+            },
+            { 
+                id: 18, category: "cards", title: "شدات ببجي موبايل (PUBG UC) ستيم التركي", image: "png (18).png", desc: defaultDesc, 
+                hasVariants: true, 
+                variants: [
+                    { name: "شحن 60 شدة فوري", price: 1.10 },
+                    { name: "شحن 325 شدة فوري", price: 4.25 },
+                    { name: "شحن 660 شدة فوري", price: 8.40 },
+                    { name: "شحن 1800 شدة فوري", price: 21.00 },
+                    { name: "شحن 3850 شدة فوري", price: 41.50 }
+                ]
+            },
+            { 
+                id: 19, category: "cards", title: "شدات ببجي موبايل (PUBG UC) ستيم السعودي", image: "png (19).png", desc: defaultDesc, 
+                hasVariants: true, 
+                variants: [
+                    { name: "شحن 60 شدة فوري", price: 1.20 },
+                    { name: "شحن 325 شدة فوري", price: 4.50 },
+                    { name: "شحن 660 شدة فوري", price: 8.80 },
+                    { name: "شحن 1800 شدة فوري", price: 22.00 },
+                    { name: "شحن 3850 شدة فوري", price: 43.00 }
+                ]
+            },
+            { 
+                id: 28, category: "cards", title: "اشتراك بلايستيشن بلس 12 شهر - الفاخر Premium", image: "png (28).png", desc: defaultDesc, 
+                hasVariants: true, 
+                variants: [
+                    { name: "الاشتراك القياسي لبند الحساب اللبناني", price: 39.00 },
+                    { name: "الاشتراك القياسي لبند الحساب الإماراتي", price: 44.00 },
+                    { name: "الاشتراك القياسي لبند الحساب السعودي", price: 49.00 }
+                ]
+            },
+            { 
+                id: 29, category: "cards", title: "اشتراك بلايستيشن بلس 12 شهر - الإضافي Extra", image: "png (29).png", desc: defaultDesc, 
+                hasVariants: true, 
+                variants: [
+                    { name: "الاشتراك القياسي لبند الحساب اللبناني", price: 35.00 },
+                    { name: "الاشتراك القياسي لبند الحساب الإماراتي", price: 39.00 },
+                    { name: "الاشتراك القياسي لبند الحساب السعودي", price: 42.50 }
+                ]
+            },
+            { 
+                id: 30, category: "cards", title: "اشتراك بلايستيشن بلس 12 شهر - الأساسي Essential", image: "png (30).png", desc: defaultDesc, 
+                hasVariants: true, 
+                variants: [
+                    { name: "الاشتراك القياسي لبند الحساب اللبناني", price: 30.00 },
+                    { name: "الاشتراك القياسي لبند الحساب الإماراتي", price: 34.00 },
+                    { name: "الاشتراك القياسي لبند الحساب السعودي", price: 36.00 }
+                ]
+            },
+            { 
+                id: 37, category: "cards", title: "اشتراك بلايستيشن بلس 3 أشهر - الفاخر Premium", image: "png (37).png", desc: defaultDesc, 
+                hasVariants: true, 
+                variants: [
+                    { name: "الاشتراك القياسي لبند الحساب اللبناني", price: 20.00 },
+                    { name: "الاشتراك القياسي لبند الحساب السعودي", price: 24.00 }
+                ]
+            },
+            { 
+                id: 38, category: "cards", title: "اشتراك بلايستيشن بلس 3 أشهر - الإضافي Extra", image: "png (38).png", desc: defaultDesc, 
+                hasVariants: true, 
+                variants: [
+                    { name: "الاشتراك القياسي لبند الحساب اللبناني", price: 18.00 },
+                    { name: "الاشتراك القياسي لبند الحساب السعودي", price: 21.00 }
+                ]
+            },
+            { 
+                id: 39, category: "cards", title: "اشتراك بلايستيشن بلس 3 أشهر - الأساسي Essential", image: "png (39).png", desc: defaultDesc, 
+                hasVariants: true, 
+                variants: [
+                    { name: "الاشتراك القياسي لبند الحساب اللبناني", price: 13.00 },
+                    { name: "الاشتراك القياسي لبند الحساب السعودي", price: 15.50 }
+                ]
+            },
+            { 
+                id: 55, category: "cards", title: "بطاقات شحن بلايستيشن ستور البريطاني", image: "png (55).png", desc: defaultDesc, 
+                hasVariants: true, 
+                variants: [
+                    { name: "شحن بقيمة 5£", price: 4.90 },
+                    { name: "شحن بقيمة 10£", price: 9.80 },
+                    { name: "شحن بقيمة 20£", price: 19.50 },
+                    { name: "شحن بقيمة 50£", price: 48.00 }
+                ]
+            },
+            { 
+                id: 56, category: "cards", title: "بطاقات شحن بلايستيشن ستور اللبناني الإضافية", image: "png (56).png", desc: defaultDesc, 
+                hasVariants: true, 
+                variants: [
+                    { name: "شحن بقيمة 10$", price: 7.95 },
+                    { name: "شحن بقيمة 20$", price: 15.90 }
+                ]
+            },
+            { 
+                id: 64, category: "cards", title: "بطاقات شحن ستيم الأمريكي الفئة الكبرى Steam", image: "png (64).png", desc: defaultDesc, 
+                hasVariants: true, 
+                variants: [
+                    { name: "شحن بقيمة 25$", price: 25.00 },
+                    { name: "شحن بقيمة 50$", price: 49.50 },
+                    { name: "شحن بقيمة 100$", price: 98.00 }
+                ]
+            },
 
             // ==================== [ قسم الأجهزة والمنصات - consoles ] ====================
             { id: 4, category: "consoles", title: "جهاز PlayStation 5 Disc Edition نسخة الأقراص", image: "png (4).png", desc: defaultDesc, hasVariants: false, price: 485.00 },
@@ -223,20 +375,18 @@
             { id: 62, category: "accessories", title: "يد تحكم لاسلكية احترافية ومطورة Machenike G5 Pro V1000", image: "png (62).png", desc: defaultDesc, hasVariants: false, price: 44.00 }
         ];
 
-        // لتكملة الأعداد الباقية تلقائياً وبأمان في حال وجود نقص عن 64
+        // لتأمين النقص والوصول للعدد 64 كاملاً دون أي خطأ بروتوكولي
         const totalDesired = 64;
-        const currentLength = productsData.length;
         const fallbackCategories = ['cards', 'consoles', 'games', 'accessories'];
         
-        // حلقة فحص ذكية تعبئ فقط الأرقام المفقودة من الـ 64 حتى لا يحدث أي نقص بروتوكولي بالصفحة
         for (let i = 1; i <= totalDesired; i++) {
-            let exists = productsData.some(p => p.image === `png (${i}).png`);
+            let exists = productsData.some(p => p.id === i);
             if (!exists) {
                 let cat = fallbackCategories[i % fallbackCategories.length];
                 productsData.push({
                     id: i,
                     category: cat,
-                    title: `منتج إضافي متاح للمتجر (رقم الصورة ${i})`,
+                    title: `منتج متاح في المتجر (رقم الصورة ${i})`,
                     image: `png (${i}).png`,
                     desc: defaultDesc,
                     hasVariants: false,
@@ -245,7 +395,7 @@
             }
         }
 
-        // ترتيب المنتجات تصاعدياً حسب الـ ID لضمان انتظام العرض بالموقع
+        // ترتيب الأرقام تصاعدياً لانتظام المتجر
         productsData.sort((a, b) => a.id - b.id);
 
         let cart = [];
@@ -308,7 +458,7 @@
                 vSelect.innerHTML = '';
                 prod.variants.forEach((v, idx) => {
                     let opt = document.createElement('option');
-                    opt.value = idx; opt.innerText = `${v.name} (${v.price.toFixed(2)} د.أ)`;
+                    opt.value = idx; opt.innerText = `${v.name} - (${v.price.toFixed(2)} د.أ)`;
                     vSelect.appendChild(opt);
                 });
             } else { vContainer.style.display = 'none'; }
@@ -330,7 +480,7 @@
 
         function addToCart(id, vIdx) {
             const prod = productsData.find(p => p.id === id);
-            let title = prod.title + (vIdx !== null ? ` (${prod.variants[vIdx].name})` : '');
+            let title = prod.title + (vIdx !== null ? ` [${prod.variants[vIdx].name}]` : '');
             let price = vIdx !== null ? prod.variants[vIdx].price : prod.price;
             let key = vIdx !== null ? `${id}-${vIdx}` : id;
 
